@@ -9,7 +9,7 @@ namespace Dominio
 {
    public class Marca
     {
-        public int ID { get; set; }
+        public Int64 ID { get; set; }
         public Domicilo domicilio { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }

@@ -8,7 +8,7 @@ namespace Dominio
 {
     public class Estilo
     {
-        public int ID { get; set; }
+        public Int64 ID { get; set; }
         public string Nombre { get; set; }
         public bool Estado { get; set; }
     }

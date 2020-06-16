@@ -8,7 +8,7 @@ namespace Dominio
 {
     public class Item
     {
-        public int ID { get; set; }
+        public Int64 ID { get; set; }
         public Articulo Articulo { get; set; }
         public int Cantidad { get; set; }
         public double precio()
