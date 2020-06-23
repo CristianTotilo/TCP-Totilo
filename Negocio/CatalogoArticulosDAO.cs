@@ -28,64 +28,66 @@ namespace Negocio
                     Articulo.marca = marca;
                     Articulo.estilo = estilo;
 
-                    Articulo.ID = datos.lector.GetInt64(0);
+                    if (Articulo.Estado)
+                    {
+                        Articulo.ID = datos.lector.GetInt64(0);
 
-                    Articulo.marca.ID = datos.lector.GetInt64(1);
+                        Articulo.marca.ID = datos.lector.GetInt64(1);
 
-                    if (!DBNull.Value.Equals(datos.lector["NombreMarca"]))
-                        Articulo.marca.Nombre = datos.lector.GetString(2);
-                    else
-                        Articulo.marca.Nombre = "N/A";
+                        if (!DBNull.Value.Equals(datos.lector["NombreMarca"]))
+                            Articulo.marca.Nombre = datos.lector.GetString(2);
+                        else
+                            Articulo.marca.Nombre = "N/A";
 
                         Articulo.estilo.ID = datos.lector.GetInt64(3);
 
-                    if (!DBNull.Value.Equals(datos.lector["NombreEstilo"]))
-                        Articulo.estilo.Nombre = datos.lector.GetString(4);
-                    else
-                        Articulo.estilo.Nombre = "N/A";
+                        if (!DBNull.Value.Equals(datos.lector["NombreEstilo"]))
+                            Articulo.estilo.Nombre = datos.lector.GetString(4);
+                        else
+                            Articulo.estilo.Nombre = "N/A";
 
-                    if (!DBNull.Value.Equals(datos.lector["Nombre"]))
-                        Articulo.Nombre = datos.lector.GetString(5);
-                    else
-                        Articulo.Nombre = "N/A";
+                        if (!DBNull.Value.Equals(datos.lector["Nombre"]))
+                            Articulo.Nombre = datos.lector.GetString(5);
+                        else
+                            Articulo.Nombre = "N/A";
 
-                    if (!DBNull.Value.Equals(datos.lector["Descripcion"]))
-                        Articulo.Descripcion = datos.lector.GetString(6);
-                    else
-                        Articulo.Descripcion = "N/A";
+                        if (!DBNull.Value.Equals(datos.lector["Descripcion"]))
+                            Articulo.Descripcion = datos.lector.GetString(6);
+                        else
+                            Articulo.Descripcion = "N/A";
 
-                    if (!DBNull.Value.Equals(datos.lector["ABV"]))
-                        Articulo.ABV = (float)datos.lector.GetSqlDouble(7);
-                    else
-                        Articulo.ABV = 0;
+                        if (!DBNull.Value.Equals(datos.lector["ABV"]))
+                            Articulo.ABV = (float)datos.lector.GetSqlDouble(7);
+                        else
+                            Articulo.ABV = 0;
 
-                    if (!DBNull.Value.Equals(datos.lector["IBU"]))
-                        Articulo.IBU = (float)datos.lector.GetSqlDouble(8);
-                    else
-                        Articulo.IBU = 0;
-                    
-                    if (!DBNull.Value.Equals(datos.lector["Volumen"]))
-                        Articulo.Volumen = datos.lector.GetInt32(9);
-                    else
-                        Articulo.Volumen = 0;
-                    
-                    if (!DBNull.Value.Equals(datos.lector["Valoracion"]))
-                        Articulo.Valoracion = (float)datos.lector.GetSqlDouble(10);
-                    else
-                        Articulo.Valoracion = 0;
+                        if (!DBNull.Value.Equals(datos.lector["IBU"]))
+                            Articulo.IBU = (float)datos.lector.GetSqlDouble(8);
+                        else
+                            Articulo.IBU = 0;
 
-                    if (!DBNull.Value.Equals(datos.lector["Precio"]))
-                        Articulo.Precio = datos.lector.GetDecimal(11);
-                    else
-                        Articulo.Precio = 0;
-                    
-                    if (!DBNull.Value.Equals(datos.lector["ImagenUrl"]))
-                        Articulo.ImagenUrl = datos.lector.GetString(12);
-                    else
-                        Articulo.ImagenUrl = "N/A";
+                        if (!DBNull.Value.Equals(datos.lector["Volumen"]))
+                            Articulo.Volumen = datos.lector.GetInt32(9);
+                        else
+                            Articulo.Volumen = 0;
 
-                    Listado.Add(Articulo);
+                        if (!DBNull.Value.Equals(datos.lector["Valoracion"]))
+                            Articulo.Valoracion = (float)datos.lector.GetSqlDouble(10);
+                        else
+                            Articulo.Valoracion = 0;
 
+                        if (!DBNull.Value.Equals(datos.lector["Precio"]))
+                            Articulo.Precio = datos.lector.GetDecimal(11);
+                        else
+                            Articulo.Precio = 0;
+
+                        if (!DBNull.Value.Equals(datos.lector["ImagenUrl"]))
+                            Articulo.ImagenUrl = datos.lector.GetString(12);
+                        else
+                            Articulo.ImagenUrl = "N/A";
+
+                        Listado.Add(Articulo);
+                    }
                 }
 
                 return Listado;
@@ -101,96 +103,84 @@ namespace Negocio
             }
         }
 
-        //PARA EDITAR
+        public void agregar(Articulo articulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
-        //public void agregar(Articulo nuevo)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearSP("SP_agregar_articulo");
+                datos.ClearParameters();
+                datos.agregarParametro("@IDMarca", articulo.marca.ID);
+                datos.agregarParametro("@IDEstilo", articulo.estilo.ID);
+                if (articulo.Descripcion == "")
+                    articulo.Descripcion = "N/A";
+                datos.agregarParametro("@Descripcion", articulo.Descripcion);
+                datos.agregarParametro("@ABV", articulo.ABV);
+                datos.agregarParametro("@IBU", articulo.IBU);
+                datos.agregarParametro("@Volumen", articulo.Valoracion);
+                if (articulo.Precio == 0)
+                    articulo.Precio = 0;
+                datos.agregarParametro("@Precio", articulo.Precio);
+                datos.agregarParametro("@ImagenUrl", articulo.ImagenUrl);
+                datos.agregarParametro("@Estado", 1);
+                if (articulo.Nombre == "")
+                    articulo.Nombre = "N/A";
+                datos.agregarParametro("@Nombre", articulo.Nombre);
 
-        //    try
-        //    {
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        //        datos.setearQuery("insert into ARTICULOS (Codigo, Nombre, Descripcion,IdMarca,IdCategoria,ImagenUrl,Precio) Values (@Codigo,@Nombre,@Descripcion,@Marca,@Categoria,@ImagenUrl,@Precio)");
-        //        // comando.Parameters.Clear();
-        //        if (nuevo.Codigo == "")
-        //            nuevo.Codigo = "N/A";
-        //        datos.agregarParametro("@Codigo", nuevo.Codigo);
+        public void modificar(Articulo articulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
-        //        if (nuevo.Nombre == "")
-        //            nuevo.Nombre = "N/A";
-        //        datos.agregarParametro("@Nombre", nuevo.Nombre);
+            try
+            {
+                datos.setearSP("SP_modificar_articulo");
+                datos.agregarParametro("@IDArticulo", articulo.ID);
+                datos.agregarParametro("@IDMarca", articulo.marca.ID);
+                datos.agregarParametro("@IDEstilo", articulo.estilo.ID);
+                datos.agregarParametro("@Descripcion", articulo.Descripcion);
+                datos.agregarParametro("@ABV", articulo.ABV);
+                datos.agregarParametro("@IBU", articulo.IBU.);
+                datos.agregarParametro("@Volumen", articulo.Volumen);
+                datos.agregarParametro("@Precio", articulo.Precio);
+                datos.agregarParametro("@ImagenUrl", articulo.ImagenUrl);
+                datos.agregarParametro("@Nombre", articulo.Nombre);
+                datos.ejecutarAccion();
 
-        //        if (nuevo.Descripcion == "")
-        //            nuevo.Descripcion = "N/A";
-        //        datos.agregarParametro("@Descripcion", nuevo.Descripcion);
+            }
+            catch (Exception ex)
+            {
 
-        //        if (nuevo.Marca != null)
-        //            datos.agregarParametro("@Marca", nuevo.Marca.ID.ToString());
-        //        else
-        //            datos.agregarParametro("@Marca", "1");//deberia haber un id marca en la DB con descripcion N/A
+                throw ex;
+            }
+        }
 
-        //        if (nuevo.Categoria != null)
-        //            datos.agregarParametro("@Categoria", nuevo.Categoria.ID.ToString());
-        //        else
-        //            datos.agregarParametro("@Categoria", "1");//deberia haber un id categoria en la DB con descripcion N/A
+        //baja logica
+        public void Eliminar(int ID)
+        {
+            AccesoDatos datos = new AccesoDatos();
 
-        //        if (nuevo.ImagenURL == "")
-        //            nuevo.ImagenURL = "N/A";
-        //        datos.agregarParametro("@ImagenUrl", nuevo.ImagenURL);
-        //        datos.agregarParametro("@Precio", nuevo.Precio);
+            try
+            {
+                datos.setearQuery("SP_eliminar_articulo");
+                datos.agregarParametro("@IDArticulo", ID);
+                datos.ejecutarAccion();
 
-        //        datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}
-
-        //public void modificar(Articulo articulo)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-
-        //    try
-        //    {
-        //        datos.setearQuery("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion ,IdMarca = @Marca,IdCategoria = @Categoria,ImagenUrl = @ImagenUrl,Precio= @Precio where Id = @Id");
-        //        datos.agregarParametro("@Id", articulo.ID);
-        //        datos.agregarParametro("@Codigo", articulo.Codigo);
-        //        datos.agregarParametro("@Nombre", articulo.Nombre);
-        //        datos.agregarParametro("@Descripcion", articulo.Descripcion);
-        //        datos.agregarParametro("@Marca", articulo.Marca.ID.ToString());
-        //        datos.agregarParametro("@Categoria", articulo.Categoria.ID.ToString());
-        //        datos.agregarParametro("@ImagenUrl", articulo.ImagenURL);
-        //        datos.agregarParametro("@Precio", articulo.Precio.ToString());
-        //        datos.ejecutarAccion();
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
-        //public void Eliminar(int id)
-        //{
-        //    AccesoDatos datos = new AccesoDatos();
-
-        //    try
-        //    {
-        //        datos.setearQuery(" delete from ARTICULOS where id=@Id");
-        //        datos.agregarParametro("@Id", id);
-        //        datos.ejecutarAccion();
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //}
+                throw ex;
+            }
+        }
 
     }
 }
