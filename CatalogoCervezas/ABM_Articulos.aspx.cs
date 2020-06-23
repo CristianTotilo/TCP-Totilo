@@ -9,7 +9,7 @@ using Negocio;
 
 namespace CatalogoCervezas
 {
-    public partial class CatalogoArticulos : System.Web.UI.Page
+    public partial class ABM_Articulos : System.Web.UI.Page
     {
         public List<Articulo> listaArticulos = new List<Articulo>();
         protected void Page_Load(object sender, EventArgs e)
@@ -22,9 +22,18 @@ namespace CatalogoCervezas
 
                 if (!IsPostBack)
                 {
-                    repetidor.DataSource = listaArticulos;
-                    repetidor.DataBind();
+
+                    string idEliminar = Request.QueryString["eliminar"];
+                    if (idEliminar != null)
+                    {
+                        ArticulosDAO.Eliminar(Convert.ToInt64(idEliminar));
+                    }
+
+                    cargarRepeater();
+
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -33,6 +42,21 @@ namespace CatalogoCervezas
                 Response.Redirect("Error.aspx");
             }
         }
+        protected void cargarRepeater()
+        {
+            try
+            {
+                repetidor.DataSource = listaArticulos;
+                repetidor.DataBind();
 
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Session["Error" + Session.SessionID] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
+
+        }
     }
 }

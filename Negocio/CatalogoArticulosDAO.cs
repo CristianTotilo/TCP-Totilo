@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setearQuery("select A.IDArticulo,A.IDMarca,M.NombreMarca,A.IDEstilo,E.NombreEstilo,A.Nombre,A.Descripcion,A.ABV,A.IBU,A.Volumen,A.Valoracion,A.Precio,A.ImagenUrl from ARTICULO as A left join Estilos as E on A.IDEstilo = E.IDEstilo left join Marcas as M on A.IDMarca = M.IDMarca");
+                datos.setearQuery("select A.IDArticulo,A.IDMarca,M.NombreMarca,A.IDEstilo,E.NombreEstilo,A.Nombre,A.Descripcion,A.ABV,A.IBU,A.Volumen,A.Precio,A.ImagenUrl,A.Estado from ARTICULO as A left join Estilos as E on A.IDEstilo = E.IDEstilo  left join Marcas as M on A.IDMarca = M.IDMarca");
 
                 datos.ejecutarLector();
                 while (datos.lector.Read())
@@ -28,7 +28,10 @@ namespace Negocio
                     Articulo.marca = marca;
                     Articulo.estilo = estilo;
 
-                    if (Articulo.Estado)
+                    if (!DBNull.Value.Equals(datos.lector["Estado"]))
+                        Articulo.Estado = datos.lector.GetBoolean(12);
+
+                    if (Articulo.Estado == true)
                     {
                         Articulo.ID = datos.lector.GetInt64(0);
 
@@ -71,18 +74,18 @@ namespace Negocio
                         else
                             Articulo.Volumen = 0;
 
-                        if (!DBNull.Value.Equals(datos.lector["Valoracion"]))
-                            Articulo.Valoracion = (float)datos.lector.GetSqlDouble(10);
-                        else
-                            Articulo.Valoracion = 0;
+                        //if (!DBNull.Value.Equals(datos.lector["Valoracion"]))
+                        //    Articulo.Valoracion = (float)datos.lector.GetSqlDouble(10);
+                        //else
+                        //    Articulo.Valoracion = 0;
 
                         if (!DBNull.Value.Equals(datos.lector["Precio"]))
-                            Articulo.Precio = datos.lector.GetDecimal(11);
+                            Articulo.Precio = datos.lector.GetDecimal(10);
                         else
                             Articulo.Precio = 0;
 
                         if (!DBNull.Value.Equals(datos.lector["ImagenUrl"]))
-                            Articulo.ImagenUrl = datos.lector.GetString(12);
+                            Articulo.ImagenUrl = datos.lector.GetString(11);
                         else
                             Articulo.ImagenUrl = "N/A";
 
@@ -148,7 +151,7 @@ namespace Negocio
                 datos.agregarParametro("@IDEstilo", articulo.estilo.ID);
                 datos.agregarParametro("@Descripcion", articulo.Descripcion);
                 datos.agregarParametro("@ABV", articulo.ABV);
-                datos.agregarParametro("@IBU", articulo.IBU.);
+                datos.agregarParametro("@IBU", articulo.IBU );
                 datos.agregarParametro("@Volumen", articulo.Volumen);
                 datos.agregarParametro("@Precio", articulo.Precio);
                 datos.agregarParametro("@ImagenUrl", articulo.ImagenUrl);
@@ -164,7 +167,7 @@ namespace Negocio
         }
 
         //baja logica
-        public void Eliminar(int ID)
+        public void Eliminar(Int64 ID)
         {
             AccesoDatos datos = new AccesoDatos();
 
