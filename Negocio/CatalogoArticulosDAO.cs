@@ -121,7 +121,7 @@ namespace Negocio
                 datos.agregarParametro("@Descripcion", articulo.Descripcion);
                 datos.agregarParametro("@ABV", articulo.ABV);
                 datos.agregarParametro("@IBU", articulo.IBU);
-                datos.agregarParametro("@Volumen", articulo.Valoracion);
+                datos.agregarParametro("@Volumen", articulo.Volumen);
                 if (articulo.Precio == 0)
                     articulo.Precio = 0;
                 datos.agregarParametro("@Precio", articulo.Precio);
@@ -173,7 +173,7 @@ namespace Negocio
 
             try
             {
-                datos.setearQuery("SP_eliminar_articulo");
+                datos.setearSP("SP_eliminar_articulo");
                 datos.agregarParametro("@IDArticulo", ID);
                 datos.ejecutarAccion();
 

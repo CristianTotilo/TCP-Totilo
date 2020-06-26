@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
 
+
 namespace CatalogoCervezas
 {
     public partial class ABM_Articulos : System.Web.UI.Page
@@ -27,6 +28,7 @@ namespace CatalogoCervezas
                     if (idEliminar != null)
                     {
                         ArticulosDAO.Eliminar(Convert.ToInt64(idEliminar));
+                        Session[Session.SessionID + "listaArticulos"] = listaArticulos;
                     }
 
                     cargarRepeater();

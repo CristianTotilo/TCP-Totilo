@@ -15,7 +15,7 @@ namespace Dominio
         public string Descripcion { get; set; }
         public float ABV { get; set; }
         public float IBU { get; set; }
-        public float Valoracion { get; set; }
+        //public float Valoracion { get; set; }
         public int Volumen { get; set; }
         public decimal Precio { get; set; }
         public string ImagenUrl { get; set; }
