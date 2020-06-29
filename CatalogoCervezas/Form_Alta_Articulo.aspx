@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
         <form class="needs-validation" novalidate>
             <%--Nombre--%>
@@ -14,14 +15,14 @@
                 <%--Estilo--%>
                 <div class="col-md-3 mb-3">
                     <label>Seleccione un Estilo</label>
-                    <asp:DropDownList CssClass="custom-select" ID="ddlEstilos"  runat="server">
+                    <asp:DropDownList CssClass="custom-select" ID="ddlEstilos" runat="server">
                         <asp:ListItem></asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <%--marca--%>
                 <div class="col-md-3 mb-3">
                     <label>Seleccione una Marca</label>
-                    <asp:DropDownList CssClass="custom-select" ID="ddlMarcas"  runat="server">
+                    <asp:DropDownList CssClass="custom-select" ID="ddlMarcas" runat="server">
                         <asp:ListItem></asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -31,7 +32,7 @@
                 <div class="col-md-6">
                     <label>Descripcion</label>
                     <%--<textarea id="txt_descripciona" runat="server" placeholder="Inserte una Descripcion"  rows="4"  Class="form-control">  </textarea>--%>
-                    <asp:TextBox  runat="server" ID="txt_descripcion"  CssClass="form-control" placeholder="Inserte una Descripcion"  />
+                    <asp:TextBox runat="server" ID="txt_descripcion" CssClass="form-control" placeholder="Inserte una Descripcion" />
                 </div>
                 <%--ABV--%>
                 <div class="col-md-2">
@@ -51,21 +52,30 @@
                 <%--Precio--%>
                 <div class="col-md-1">
                     <label>Precio </label>
-                    <asp:TextBox runat="server" ID="txt_precio" CssClass="form-control"  placeholder="0000.00"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txt_precio" CssClass="form-control" placeholder="0000.00"></asp:TextBox>
                 </div>
             </div>
             <%--ImagenURL--%>
             <div class="form-row">
                 <div class="col-md-6 ">
-                    <label>URL de la imagen del articulo </label>
-                    <asp:TextBox runat="server" TextMode="Url" ID="txt_URLimagen" CssClass="form-control" placeholder="Inserte la url de la imagen del producto" />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <div class="form-group">
+                                <label>URL de la imagen del articulo </label>
+                                <asp:TextBox runat="server" TextMode="Url" ID="txt_URLimagen" CssClass="form-control" placeholder="Inserte la url de la imagen del producto" />
+                                </br>
+                                <asp:Button Text="Cargar Imagen" runat="server" ID="btnCargarImagen" CssClass="btn btn-primary" OnClick="CargarImagen_Click" />
+                                <img src="<% = urlImagen %>" alt="No se cargo ninguna Imagen" style="max-height:500px; max-width:450px;" />
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
             <%--boton Cargar--%>
             <div class="form form-row">
                 <div class="col-md-6 ">
                     <br />
-                    <asp:Button Text="Enviar Formulario" OnClick="Cargar"  id="btnSubmit" title="Pulse para enviar formulario" class="btn btn-primary" runat="server" />
+                    <asp:Button Text="Cargar Formulario" OnClick="Cargar" ID="btnSubmit" title="Pulse para enviar formulario" class="btn btn-primary" runat="server" />
                 </div>
             </div>
 

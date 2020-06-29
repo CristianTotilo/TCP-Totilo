@@ -16,6 +16,7 @@ namespace Dominio
         public int Piso { get; set; }
         public char Depto { get; set; }
         public string Referencia { get; set; }
+        public int codigoPostal { get; set; }
 
     }
 }

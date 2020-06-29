@@ -55,6 +55,88 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public void agregar(Marca marca)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Domicilo domicilio = new Domicilo();
+            Provincia provincia = new Provincia();
+            marca.domicilio = domicilio;
+            marca.domicilio.provincia = provincia;
+
+            try
+            {
+                datos.setearSP("SP_agregar_marca_domicilio");
+                datos.ClearParameters();
+                if (marca.Nombre == "")
+                    marca.Nombre = "N/A";
+                datos.agregarParametro("@NombreMarca", marca.Nombre);
+                datos.agregarParametro("@Estado", 1);
+                datos.agregarParametro("@IDProvincia", marca.domicilio.provincia.ID);
+                datos.agregarParametro("@Ciudad", marca.domicilio.Ciudad);
+                datos.agregarParametro("@Calle", marca.domicilio.Calle);
+                datos.agregarParametro("@Numero", marca.domicilio.NumeroAltura);
+                datos.agregarParametro("@Piso",marca.domicilio.Piso);
+                datos.agregarParametro("@Depto", marca.domicilio.Depto);
+                datos.agregarParametro("@Referencia", marca.domicilio.Referencia);
+                datos.agregarParametro("@CodigoPostal",marca.domicilio.codigoPostal);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public void modificar(Marca marca)//modifica marca + domicilio
+        {
+            AccesoDatos datos = new AccesoDatos();
+            Domicilo domicilio = new Domicilo();
+            Provincia provincia = new Provincia();
+            marca.domicilio = domicilio;
+            marca.domicilio.provincia = provincia;
+            try
+            {
+
+                datos.setearSP("SP_modificar_marca");
+                datos.agregarParametro("@IDMArca", marca.ID);
+                datos.agregarParametro("@NombreMarca", marca.Nombre);
+                datos.agregarParametro("@IDDomicilio", marca.domicilio.ID);
+                datos.agregarParametro("@IDProvincia", marca.domicilio.provincia.ID);
+                datos.agregarParametro("@Ciudad", marca.domicilio.Ciudad);
+                datos.agregarParametro("@Numero", marca.domicilio.NumeroAltura);
+                datos.agregarParametro("@Piso", marca.domicilio.Piso);
+                datos.agregarParametro("@Depto", marca.domicilio.Depto);
+                datos.agregarParametro("@Referencia", marca.domicilio.Referencia);
+                datos.agregarParametro("@CodigoPostal", marca.domicilio.codigoPostal);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        //baja logica
+        public void Eliminar(Int64 ID)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearSP("SP_eliminar_maca");
+                datos.agregarParametro("@IDMarca", ID);
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
     }
 }

@@ -78,7 +78,6 @@
     <Content Include="Error.aspx" />
     <Content Include="Form_Alta_Articulo.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="modalmodificar.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
