@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Negocio;
 
 namespace CatalogoCervezas
 {
@@ -15,18 +16,18 @@ namespace CatalogoCervezas
         {
             try
             {
-                CatalogoArticulosDAO ArticulosDAO = new CatalogoArticulosDAO();
-                listaArticulos = ArticulosDAO.listar();
-                Session[Session.SessionID + "listaArticulos"] = listaArticulos;
+                EstilosDAO estilosDAO = new EstilosDAO();
+                listaEstilos = estilosDAO.listar();
+                Session[Session.SessionID + "listaEstilos"] = listaEstilos;
 
                 if (!IsPostBack)
                 {
 
-                    string idEliminar = Request.QueryString["eliminar"];
+                    string idEliminar = Request.QueryString["eliminarEstilo"];
                     if (idEliminar != null)
                     {
-                        ArticulosDAO.Eliminar(Convert.ToInt64(idEliminar));
-                        Session[Session.SessionID + "listaArticulos"] = listaArticulos;
+                        estilosDAO.Eliminar(Convert.ToInt64(idEliminar));
+                        Session[Session.SessionID + "listaEstilos"] = listaEstilos;
                     }
 
                     cargarRepeater();
@@ -46,7 +47,7 @@ namespace CatalogoCervezas
         {
             try
             {
-                repetidor.DataSource = listaArticulos;
+                repetidor.DataSource = listaEstilos;
                 repetidor.DataBind();
 
             }

@@ -77,6 +77,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Form_Alta_Articulo.aspx" />
+    <Content Include="Form_Alta_Estilo.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -150,6 +151,13 @@
     </Compile>
     <Compile Include="Form_Alta_Articulo.aspx.designer.cs">
       <DependentUpon>Form_Alta_Articulo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Alta_Estilo.aspx.cs">
+      <DependentUpon>Form_Alta_Estilo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Form_Alta_Estilo.aspx.designer.cs">
+      <DependentUpon>Form_Alta_Estilo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

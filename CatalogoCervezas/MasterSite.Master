@@ -31,8 +31,17 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="ABM_Articulos.aspx">ABM de Articulos</a>
                 </li>
+                 <li class="nav-item active">
+                    <a class="nav-link" href="ABM_Estilos.aspx">ABM de Estilos</a>
+                </li> 
+                <li class="nav-item active">
+                    <a class="nav-link" href="ABM_Marca.aspx">ABM de Marcas</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="Form_Alta_Articulo.aspx">Form Alta Articulos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="Form_Alta_Estilo.aspx">Form Alta Estilos</a>
                 </li>
             </ul>
         </div>

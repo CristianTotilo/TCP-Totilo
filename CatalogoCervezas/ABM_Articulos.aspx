@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <h1 style="margin-bottom: 0; background-image: url(https://i.pinimg.com/originals/ef/c6/02/efc602081b94ce1e95d9bcae1773995f.jpg); text-align: center">ABM de Articulos</h1>
         <div style="background-color: black">
-            <a id="btnAgregarArticulo" href="Form_Alta_Articulo.aspx?modificar="" class="btn btn-warning btn-lg btn-block" title="Pulse para agregar un nuevo articulo" style="font-weight: 600; border-color: black">Agregar nuevo Articulo</a>
+            <a id="btnAgregarArticulo" href="Form_Alta_Articulo.aspx?modificarArticulo="" class="btn btn-warning btn-lg btn-block" title="Pulse para agregar un nuevo articulo" style="font-weight: 600; border-color: black">Agregar nuevo Articulo</a>
 
         </div>
         <asp:Repeater runat="server" ID="repetidor">

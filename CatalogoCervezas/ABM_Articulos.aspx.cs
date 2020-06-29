@@ -24,7 +24,7 @@ namespace CatalogoCervezas
                 if (!IsPostBack)
                 {
 
-                    string idEliminar = Request.QueryString["eliminar"];
+                    string idEliminar = Request.QueryString["eliminarArticulo"];
                     if (idEliminar != null)
                     {
                         ArticulosDAO.Eliminar(Convert.ToInt64(idEliminar));
