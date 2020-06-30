@@ -5,7 +5,7 @@
      <div class="panel panel-default">
         <h1 style="margin-bottom: 0; background-image: url(https://i.pinimg.com/originals/ef/c6/02/efc602081b94ce1e95d9bcae1773995f.jpg); text-align: center">ABM de Marcas</h1>
         <div style="background-color: black">
-            <a id="btnAgregarMarca" href="Form_Alta_Estilo.aspx?modificarMarca="" class="btn btn-warning btn-lg btn-block" title="Pulse para agregar una nueva Marca" style="font-weight: 600; border-color: black">Agregar nueva Marca</a>
+            <a id="btnAgregarMarca" href="Form_Alta_Marca.aspx?modificarMarca="" class="btn btn-warning btn-lg btn-block" title="Pulse para agregar una nueva Marca" style="font-weight: 600; border-color: black">Agregar nueva Marca</a>
 
         </div>
         <asp:Repeater runat="server" ID="repetidor">

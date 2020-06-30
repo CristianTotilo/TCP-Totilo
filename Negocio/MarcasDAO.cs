@@ -106,10 +106,6 @@ namespace Negocio
         public void agregar(Marca marca)
         {
             AccesoDatos datos = new AccesoDatos();
-            Domicilo domicilio = new Domicilo();
-            Provincia provincia = new Provincia();
-            marca.domicilio = domicilio;
-            marca.domicilio.provincia = provincia;
 
             try
             {
@@ -144,25 +140,24 @@ namespace Negocio
         public void modificar(Marca marca)//modifica marca + domicilio
         {
             AccesoDatos datos = new AccesoDatos();
-            Domicilo domicilio = new Domicilo();
-            Provincia provincia = new Provincia();
-            marca.domicilio = domicilio;
-            marca.domicilio.provincia = provincia;
             try
             {
 
                 datos.setearSP("SP_modificar_marca");
                 datos.agregarParametro("@IDMArca", marca.ID);
                 datos.agregarParametro("@NombreMarca", marca.Nombre);
+                datos.ejecutarAccion();
+                datos.ClearParameters();
+                datos.setearSP("SP_modificar_domicilio");
                 datos.agregarParametro("@IDDomicilio", marca.domicilio.ID);
                 datos.agregarParametro("@IDProvincia", marca.domicilio.provincia.ID);
                 datos.agregarParametro("@Ciudad", marca.domicilio.Ciudad);
+                datos.agregarParametro("@Calle", marca.domicilio.Calle);
                 datos.agregarParametro("@Numero", marca.domicilio.NumeroAltura);
                 datos.agregarParametro("@Piso", marca.domicilio.Piso);
                 datos.agregarParametro("@Depto", marca.domicilio.Depto);
                 datos.agregarParametro("@Referencia", marca.domicilio.Referencia);
                 datos.agregarParametro("@CodigoPostal", marca.domicilio.codigoPostal);
-
                 datos.ejecutarAccion();
 
             }

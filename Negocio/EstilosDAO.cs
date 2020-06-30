@@ -63,7 +63,7 @@ namespace Negocio
                 datos.ClearParameters();
                 if (estilo.Nombre == "")
                     estilo.Nombre = "N/A";
-                datos.agregarParametro("@Nombre", estilo.Nombre);
+                datos.agregarParametro("@NombreEstilo", estilo.Nombre);
                 datos.agregarParametro("@Estado", 1);
 
                 datos.ejecutarAccion();
@@ -82,7 +82,7 @@ namespace Negocio
             {
                 datos.setearSP("SP_modificar_estilo");
                 datos.agregarParametro("@IDEstilo", estilo.ID);
-                datos.agregarParametro("@Nombre", estilo.Nombre);
+                datos.agregarParametro("@NombreEstilo", estilo.Nombre);
                 datos.ejecutarAccion();
 
             }
