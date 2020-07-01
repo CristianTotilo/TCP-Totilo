@@ -4,35 +4,48 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-image: url(https://i.pinimg.com/originals/ef/c6/02/efc602081b94ce1e95d9bcae1773995f.jpg); position: sticky;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-image: url(https://i.pinimg.com/originals/ef/c6/02/efc602081b94ce1e95d9bcae1773995f.jpg);">
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: black; font-weight: bold;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Estilos</a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%foreach (var estilo in listaEstilos)
+                            {%>
+                        <a class="dropdown-item" href="CatalogoArticulos.aspx?filtroEstilo=<%= estilo.ID%>"><%= estilo.Nombre%></a>
+                        <%}%>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: black; font-weight: bold;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Marcas</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%foreach (var marca in listaMarcas)
+                            {%>
+                        <a class="dropdown-item" href="CatalogoArticulos.aspx?filtroMarca=<%= marca.ID%>"><%= marca.Nombre%></a>
+                        <%}%>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <asp:TextBox CssClass="form-control" ID="txt_Buscar"  runat="server"></asp:TextBox>
+                </li>
+                <li class="nav-item">
+                    <asp:Button CssClass="btn btn-dark" Font-Bold="true" ID="btnBuscar" runat="server" Text="Buscar" OnClick=" btnBuscar_Click" />
                 </li>
             </ul>
-            <div class="input-group mb-3" style="position: center; top: 10px;">
-                <input type="text" class="form-control" placeholder="Que cerveza quiero buscar..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-dark" type="button" id="button-addon2">Buscar</button>
-                </div>
-            </div>
         </div>
     </nav>
-    <div class="container-fluid" style="background-image: url(https://cdn.craftbeer.com/wp-content/uploads/2014/09/26201438/Blood-Sweat-Beer-Logo.jpg)">
 
+    <div class="container-fluid" style="background-image: url(https://cdn.craftbeer.com/wp-content/uploads/2014/09/26201438/Blood-Sweat-Beer-Logo.jpg)">
         <div class="row">
             <div class="col">
                 <div class="card-columns" style="margin-left: 5px; margin-right: 5px;">
                     <asp:Repeater runat="server" ID="repetidor">
                         <ItemTemplate>
-                            <div class="card bg-light mb-3" style="width: 18rem; max-height: 1500px; max-width: 300px;">
+                            <div class="card bg-light mb-3" style="width: 350px; max-height: 1500px; max-width: 500px;">
                                 <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h3 class="card-title" style="text-align: center;"><%#Eval("Nombre")%></h3>
@@ -49,14 +62,8 @@
                                         <div class="card-footer" style="font-weight: bold">Precio: $<%#Eval("Precio")%></div>
                                         <div class="container">
                                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <label class="btn btn-success active">
-                                                    <input type="radio" name="options" id="option1" checked>
-                                                    Comprar
-                                                </label>
-                                                <label class="btn btn-danger">
-                                                    <input type="radio" name="options" id="option2">
-                                                    Favoritos
-                                                </label>
+                                                <a class="btn btn-warning" style="color: black; font-weight: bold;" href="CarritoWeb.aspx?idsum=<%#Eval("ID") %>">Agregar al carrito</a>
+                                                <a class="btn btn-success" style="font-weight: bold;" href="CatalogoArticulos.aspx?idfav=<%#Eval("ID") %>">Agregar a favoritos</a>
                                             </div>
                                         </div>
                                 </div>
@@ -67,9 +74,4 @@
             </div>
         </div>
     </div>
-
-    <%--    <div class="container-fluid" style="background-image: url(https://cdn.craftbeer.com/wp-content/uploads/2014/09/26201438/Blood-Sweat-Beer-Logo.jpg)">
-        <div class="card-columns" style="margin-left: 5px; margin-right: 5px;">
-        </div>
-    </div>--%>
 </asp:Content>
