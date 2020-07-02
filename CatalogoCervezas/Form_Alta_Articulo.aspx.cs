@@ -170,5 +170,9 @@ namespace CatalogoCervezas
 
         }
 
+        protected void txt_URLimagen_TextChanged(object sender, EventArgs e)
+        {
+            urlImagen = txt_URLimagen.Text;
+        }
     }
 }

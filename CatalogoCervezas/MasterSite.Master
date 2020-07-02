@@ -60,10 +60,10 @@
     </form>
 </body>
 
-<footer class="footer">
-
+<footer class="footer" style="background-color:#1e1d1d">
     <div class="container">
-        <p>TOTILO CRISTIAN ®  Catalogo Cervecero 2020 </p>
+            <p style="color:aliceblue">&copy; 2020 TOTILO CRISTIAN Catalogo Cervecero 2020.com &middot; <a href="Default.aspx">Home</a> &middot; <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="CatalogoArticulos.aspx">Products</a></p>
+            <p class="pull-right"><a href="#">Back to top</a></p>
     </div>
 </footer>
 

@@ -103,7 +103,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-        public void agregar(Marca marca)
+        public void agregar(Marca marca) //Agrega Marca + domicilio en un SP
         {
             AccesoDatos datos = new AccesoDatos();
 

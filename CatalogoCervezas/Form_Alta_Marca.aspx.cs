@@ -136,7 +136,7 @@ namespace CatalogoCervezas
                 else
                 {
                     marcasDAO.agregar(marca);
-                    Response.Write("<script>alert('se agrego el nuevo articulo!!');</script>");
+                    Response.Write("<script>alert('se agrego la nueva marca!!');</script>");
                 }
 
 

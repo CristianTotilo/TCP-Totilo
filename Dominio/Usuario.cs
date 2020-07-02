@@ -4,7 +4,7 @@ namespace Dominio
 {
     public class Usuario
     {
-        public int ID { get; set; }
+        public Int64 ID { get; set; }
 
         public Domicilo domicilio { get; set; }
 

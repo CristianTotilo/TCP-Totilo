@@ -33,7 +33,7 @@
                 <div class="col-md-6 mb-2">
                     <label>Descripcion</label>
                     <%--<textarea id="txt_descripciona" runat="server" placeholder="Inserte una Descripcion"  rows="4"  Class="form-control">  </textarea>--%>
-                    <asp:TextBox runat="server" ID="txt_descripcion" CssClass="form-control" placeholder="Inserte una Descripcion" />
+                    <asp:TextBox TextMode="MultiLine" runat="server" ID="txt_descripcion" CssClass="form-control" placeholder="Inserte una Descripcion" />
                 </div>
                 <%--ABV--%>
                 <div class="col-md-2 mb-2">
@@ -63,7 +63,7 @@
                         <ContentTemplate>
                             <div class="form-group">
                                 <label>URL de la imagen del articulo </label>
-                                <asp:TextBox runat="server" TextMode="Url" ID="txt_URLimagen" CssClass="form-control" placeholder="Inserte la url de la imagen del producto" />
+                                <asp:TextBox runat="server" TextMode="Url" ID="txt_URLimagen" CssClass="form-control" placeholder="Inserte la url de la imagen del producto" Ontextchanged="txt_URLimagen_TextChanged" AutoPostBack="true" />
                                 </br>
                                 <asp:Button Text="Cargar Imagen" runat="server" ID="btnCargarImagen" CssClass="btn btn-primary" OnClick="CargarImagen_Click" />
                                 <img src="<% = urlImagen %>" alt="No se cargo ninguna Imagen" style="max-height:500px; max-width:450px;" />
