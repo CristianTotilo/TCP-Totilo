@@ -51,6 +51,12 @@ namespace CatalogoCervezas
                         carrito.eliminarItem(Convert.ToInt32(idEliminar));
                         Session[Session.SessionID + "carrito"] = carrito;
                     }
+                    string idEliminarTodo = Request.QueryString["eliminarTodo"];
+                    if (idEliminarTodo != null)
+                    {
+                        carrito.eliminatTodo();
+                        Session[Session.SessionID + "carrito"] = carrito;
+                    }
 
                     cargarRepeater();
 

@@ -51,15 +51,6 @@ namespace CatalogoCervezas
         protected global::System.Web.UI.WebControls.DropDownList ddlMarcas;
 
         /// <summary>
-        /// Control txt_descripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_descripcion;
-
-        /// <summary>
         /// Control txt_ABV.
         /// </summary>
         /// <remarks>
@@ -94,6 +85,15 @@ namespace CatalogoCervezas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_precio;
+
+        /// <summary>
+        /// Control txt_descripcion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_descripcion;
 
         /// <summary>
         /// Control txt_URLimagen.

@@ -40,6 +40,9 @@
     <div>
         <h1><a class="btn btn-success btn-lg btn-block" href="CarritoWeb.aspx?comprar=<%#Eval("ID")%>">Comprar</a></h1>
     </div>
+    <div>
+        <h1><a class="btn btn-danger btn-lg btn-block" href="CarritoWeb.aspx?eliminarTodo=<%#Eval("ID")%>">Vaciar el Carrito</a></h1>
+    </div>
     <footer>
 
     <div>

@@ -45,6 +45,7 @@
     <Compile Include="Carrito.cs" />
     <Compile Include="Domicilo.cs" />
     <Compile Include="Estilo.cs" />
+    <Compile Include="Factura.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

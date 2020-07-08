@@ -78,6 +78,9 @@ namespace Dominio
                 }
             }
         }
-
+        public void eliminatTodo()
+        {
+            listaItems.Clear();
+        }
     }
 }

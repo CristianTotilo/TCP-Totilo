@@ -3,6 +3,64 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <%--Script de validacion--%>
+    <script>
+
+        function validar() {
+            //usuario
+            var nombre = document.getElementById("<% = txtNombre.ClientID %>").value;
+            var apellido = document.getElementById("<% = txtApellido.ClientID %>").value;
+            var DNI = document.getElementById("<% = txtDNI.ClientID %>").value;
+            var Email = document.getElementById("<% = txtEmail.ClientID %>").value;
+            var Contra = document.getElementById("<% = txtContra.ClientID %>").value;
+            var ContraRep = document.getElementById("<% = txtContraRep.ClientID %>").value;
+            var FechaNac = document.getElementById("<% = txtFechaNac.ClientID %>").value;
+            var Telefono = document.getElementById("<% = txtTelefono.ClientID %>").value;
+            var masculino = document.getElementById("<%= cbMasculino.ClientID %>").is(":checked");
+            var femenino = document.getElementById("<%= cbFemenino.ClientID %>").is(":checked");
+            //domicilio
+            var ciudad = document.getElementById("<% = txt_ciudad.ClientID%>").value;
+            var direccion = document.getElementById("<% = txt_direccion.ClientID%>").value;
+            var numero = document.getElementById("<% = txt_numero.ClientID%>").value;
+            var piso = document.getElementById("<% = txt_piso.ClientID%>").value;
+            var depto = document.getElementById("<% = txt_departamento.ClientID%>").value;
+            var CodigoPostal = document.getElementById("<% = txt_codigoPostal.ClientID%>").value;
+            var referencia = document.getElementById("<% = txt_referencia.ClientID%>").value;
+            var valido = true;
+           
+
+            if (nombre === "") {
+                //alert("Debes completar los campos");
+                document.getElementById("<% = txtNombre.ClientID %>").removeClass("is-valid");
+                document.getElementById("<% = txtNombre.ClientID %>").addClass("is-invalid");
+                
+                valido = false;
+            }
+            else {
+                document.getElementById("<% = txtNombre.ClientID %>").removeClass("is-invalid");
+                document.getElementById("<% = txtNombre.ClientID %>").addClass("is-valid");
+            }
+            if (!char.IsDigit(ch) && ch != 8 && ch != 44) {
+
+            }
+            if (nombre === "") {
+                $("#<% = txtNombre.ClientID %>").removeClass("is-valid");
+                $("#<% = txtNombre.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtNombre.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtNombre.ClientID %>").addClass("is-valid");
+            }
+
+            if (!valido) {
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <h1 style="text-align: center; background-color: #eadbdb; border-style: ridge">Registro de Usuario</h1>
@@ -14,6 +72,7 @@
                 <div class="col-md-4 mb-2">
                     <label>Nombre de usuario</label>
                     <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" placeholder="Introduzca sus Nombres" />
+                    <asp:RegularExpressionValidator ErrorMessage="errormessage" ControlToValidate="txtNombre" runat="server" />
                 </div>
                 <%--Apellido--%>
                 <div class="col-md-4 mb-2 ">
@@ -26,6 +85,7 @@
                 <div class="col-md-2 mb-2">
                     <label>DNI</label>
                     <asp:TextBox runat="server" ID="txtDNI" CssClass="form-control" placeholder="Introduzca su DNI" />
+                    <asp:RangeValidator ID="valDNI" ErrorMessage="El numero no debe superar los 8 digitos" MaximumValue="99999999" MinimumValue="0" ControlToValidate="txtDNI" runat="server" />
                 </div>
                 <%--FechaNac--%>
                 <div class="col-md-2 mb-2">

@@ -16,13 +16,60 @@ namespace CatalogoCervezas
     {
         char Sexo;
         public List<Provincia> listaProvincia = new List<Provincia>();
+        //public List<Usuario> listaUsuario = new List<Usuario>();
         public UsuarioDAO usuarioDAO = new UsuarioDAO();
         public ProvinciaDAO provinciaDAO = new ProvinciaDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                //listaUsuario = usuarioDAO.listar();
+                listaProvincia = provinciaDAO.listar();
+                //string idModificar = Request.QueryString["modificarUsuario"];
+
+                if (!IsPostBack)
+                {
+                        cargarDropdownlist();
+                    ////modifica
+                    //if (idModificar != null && idModificar != "")
+                    //{
+                    //    cargarUsuariosidModificar);
+
+                    //}
+                    ////agrega nuevo
+                    //else
+                    //{
+                    //}
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Session["Error" + Session.SessionID] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
+        }
+        protected void cargarDropdownlist()
+        {
+            try
+            {
+                //carga provincias
+                ddlProvincia.DataSource = listaProvincia;
+                ddlProvincia.DataValueField = "ID";
+                ddlProvincia.DataTextField = "Nombre";
+                ddlProvincia.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Session["Error" + Session.SessionID] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
 
         }
-
         protected void cbMasculino_CheckedChanged(object sender, EventArgs e)
         {
             if (cbFemenino.Checked == true)
@@ -41,15 +88,20 @@ namespace CatalogoCervezas
 
         protected void btnSubmit3_Click(object sender, EventArgs e)
         {
+
             Usuario usuario = new Usuario();
             Provincia provincia = new Provincia();
             Domicilo domicilio = new Domicilo();
+            TipoUsuario tipoUsuario = new TipoUsuario();
+            usuario.tipoUsuario = tipoUsuario;
             usuario.domicilio = domicilio;
             usuario.domicilio.provincia = provincia;
             //string idModificar = Request.QueryString["modificarUsuario"];
 
             try
             {
+                //usuario
+                usuario.tipoUsuario.ID = 3;
                 usuario.Nombre = txtNombre.Text.Trim();
                 usuario.Apellido = txtApellido.Text.Trim();
                 usuario.DNI = Convert.ToInt32(txtDNI.Text.Trim());
@@ -60,6 +112,9 @@ namespace CatalogoCervezas
                 usuario.Sexo = Sexo;
                 usuario.Telefono = Convert.ToInt32(txtTelefono.Text.Trim());
                 usuario.FechaNac = Convert.ToDateTime(txtFechaNac.Text.Trim());
+                usuario.Email = txtEmail.Text.Trim();
+                usuario.Contraseña = txtContra.Text.Trim();
+                //domicilio
                 usuario.domicilio.provincia.ID = int.Parse(ddlProvincia.SelectedValue);
                 usuario.domicilio.Calle = txt_direccion.Text.Trim();
                 usuario.domicilio.Ciudad = txt_ciudad.Text.Trim();
@@ -94,7 +149,7 @@ namespace CatalogoCervezas
             }
             finally
             {
-                Response.Redirect("CaralogoArticulos.aspx");
+                Response.Redirect("CatalogoArticulos.aspx");
             }
 
 
