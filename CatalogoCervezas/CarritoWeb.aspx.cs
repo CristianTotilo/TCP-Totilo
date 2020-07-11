@@ -13,6 +13,7 @@ namespace CatalogoCervezas
     {
         public List<Articulo> listaArticulos { get; set; }
         public Carrito carrito = new Carrito();
+        public Venta venta = new Venta();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,10 +31,10 @@ namespace CatalogoCervezas
                 {
                     carrito = (Carrito)Session[Session.SessionID + "carrito"];
                 }
-                string idArticulo = Request.QueryString["idsum"];
                 if (!IsPostBack)
                 {
-
+                    string idArticulo = Request.QueryString["idsum"];
+                    
                     if (carrito != null)
                     {
 
@@ -42,6 +43,15 @@ namespace CatalogoCervezas
                             AgregarAlCarrito(idArticulo);
 
                         }
+
+                    }
+                    string idComprar = Request.QueryString["comprar"];
+
+                    if (idComprar != null)
+                    {
+                        //GenerarVenta();
+                        carrito.eliminatTodo();
+                        Session[Session.SessionID + "carrito"] = carrito;
 
                     }
 
@@ -70,6 +80,11 @@ namespace CatalogoCervezas
                 Response.Redirect("Error.aspx");
             }
         }
+        //protected void GenerarVenta()
+        //{
+        //    venta.usuario= 
+        //}
+
         protected void cargarRepeater()
         {
             try

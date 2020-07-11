@@ -28,13 +28,7 @@ namespace Dominio
 
         public bool Estado { get; set; }
 
-        //public Usuario()
-        //{
-        //    FechaNac.AddHours(00);
-        //    FechaNac.AddMinutes(00);
-        //    FechaNac.AddSeconds(00);
-        //    FechaNac.AddMilliseconds(00);
-        //}
+      
     }
 
 }

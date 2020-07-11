@@ -70,6 +70,7 @@ namespace CatalogoCervezas
             }
 
         }
+        //validacion
         protected void cbMasculino_CheckedChanged(object sender, EventArgs e)
         {
             if (cbFemenino.Checked == true)

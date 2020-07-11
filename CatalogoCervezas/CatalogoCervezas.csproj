@@ -80,6 +80,7 @@
     <Content Include="Form_Alta_Estilo.aspx" />
     <Content Include="Form_Alta_Marca.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="JavaScript.js" />
     <Content Include="SignIn.aspx" />
     <Content Include="SignUp.aspx" />
     <Content Include="Web.config" />

@@ -3,10 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <%--Script de validacion--%>
     <script>
-
         function validar() {
+            //regular expressions
+            var regexLetterOnly = /^[a-zA-Z ]+$/;// solo letras y espacios 
+            var regexDNI = /^\d{8}(?:[-\s]\d{4})?$/;// DNI 
+            var regexEmail = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/; //Email
+            var regexTelefono = /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/; //Telefono (Argentina)
+            var completar = false;
+            var valido = true;
+
+            //-------------------------------carga de variables------------------------------
             //usuario
             var nombre = document.getElementById("<% = txtNombre.ClientID %>").value;
             var apellido = document.getElementById("<% = txtApellido.ClientID %>").value;
@@ -16,34 +23,26 @@
             var ContraRep = document.getElementById("<% = txtContraRep.ClientID %>").value;
             var FechaNac = document.getElementById("<% = txtFechaNac.ClientID %>").value;
             var Telefono = document.getElementById("<% = txtTelefono.ClientID %>").value;
-            var masculino = document.getElementById("<%= cbMasculino.ClientID %>").is(":checked");
-            var femenino = document.getElementById("<%= cbFemenino.ClientID %>").is(":checked");
-            //domicilio
+
+           <%-- //domicilio
             var ciudad = document.getElementById("<% = txt_ciudad.ClientID%>").value;
             var direccion = document.getElementById("<% = txt_direccion.ClientID%>").value;
             var numero = document.getElementById("<% = txt_numero.ClientID%>").value;
             var piso = document.getElementById("<% = txt_piso.ClientID%>").value;
             var depto = document.getElementById("<% = txt_departamento.ClientID%>").value;
             var CodigoPostal = document.getElementById("<% = txt_codigoPostal.ClientID%>").value;
-            var referencia = document.getElementById("<% = txt_referencia.ClientID%>").value;
-            var valido = true;
-           
+            var referencia = document.getElementById("<% = txt_referencia.ClientID%>").value;--%>
 
+            //--------------------validaciones------------------------------------
+            //nombre
             if (nombre === "") {
-                //alert("Debes completar los campos");
-                document.getElementById("<% = txtNombre.ClientID %>").removeClass("is-valid");
-                document.getElementById("<% = txtNombre.ClientID %>").addClass("is-invalid");
-                
+                $("#<% = txtNombre.ClientID %>").removeClass("is-valid");
+                $("#<% = txtNombre.ClientID %>").addClass("is-invalid");
+                completar = true;
                 valido = false;
             }
-            else {
-                document.getElementById("<% = txtNombre.ClientID %>").removeClass("is-invalid");
-                document.getElementById("<% = txtNombre.ClientID %>").addClass("is-valid");
-            }
-            if (!char.IsDigit(ch) && ch != 8 && ch != 44) {
-
-            }
-            if (nombre === "") {
+            else if (!regexLetterOnly.test(nombre)) {
+                alert("El nombre no puede llevar caracteres especiales ni numeros");
                 $("#<% = txtNombre.ClientID %>").removeClass("is-valid");
                 $("#<% = txtNombre.ClientID %>").addClass("is-invalid");
                 valido = false;
@@ -51,6 +50,104 @@
             else {
                 $("#<% = txtNombre.ClientID %>").removeClass("is-invalid");
                 $("#<% = txtNombre.ClientID %>").addClass("is-valid");
+            }
+            //apellido
+            if (apellido === "") {
+                $("#<% = txtApellido.ClientID %>").removeClass("is-valid");
+                $("#<% = txtApellido.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexLetterOnly.test(apellido)) {
+                alert("El apellido no puede llevar caracteres especiales ni numeros");
+                $("#<% = txtApellido.ClientID %>").removeClass("is-valid");
+                $("#<% = txtApellido.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtApellido.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtApellido.ClientID %>").addClass("is-valid");
+            }
+            //DNI
+            if (DNI === "") {
+                $("#<% = txtDNI.ClientID %>").removeClass("is-valid");
+                $("#<% = txtDNI.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexDNI.test(DNI)) {
+                alert("El DNI ingresado no es valido");
+                $("#<% = txtDNI.ClientID %>").removeClass("is-valid");
+                $("#<% = txtDNI.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtDNI.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtDNI.ClientID %>").addClass("is-valid");
+            }
+            //Email
+            if (Email === "") {
+
+                $("#<% = txtEmail.ClientID %>").removeClass("is-valid");
+                $("#<% = txtEmail.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexEmail.test(Email)) {
+                alert("El Email ingresado no es valido");
+                $("#<% = txtEmail.ClientID %>").removeClass("is-valid");
+                $("#<% = txtEmail.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtEmail.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtEmail.ClientID %>").addClass("is-valid");
+            }
+
+            //FechaNac
+            if (FechaNac === "") {
+
+                $("#<% = txtFechaNac.ClientID %>").removeClass("is-valid");
+                $("#<% = txtFechaNac.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else {
+                $("#<% = txtFechaNac.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtFechaNac.ClientID %>").addClass("is-valid");
+            }
+
+            //Telefono
+            if (Telefono === "") {
+
+                $("#<% = txtTelefono.ClientID %>").removeClass("is-valid");
+                $("#<% = txtTelefono.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexTelefono.test(Telefono)) {
+                alert("EL numero de telefono celular no es valido");
+                $("#<% = txtTelefono.ClientID %>").removeClass("is-valid");
+                $("#<% = txtTelefono.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtTelefono.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtTelefono.ClientID %>").addClass("is-valid");
+            }
+
+            //sexo
+            var masculino = document.getElementById("<%= cbMasculino.ClientID %>");
+            var femenino = document.getElementById("<%= cbFemenino.ClientID %>");
+            
+            if (!femenino.checked && !masculino.checked) {
+
+                completar = true;
+                valido = false;
+            }
+
+            if (completar) {
+                alert("Debes completar los campos");
             }
 
             if (!valido) {
@@ -63,16 +160,16 @@
     </script>
 
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
     <h1 style="text-align: center; background-color: #eadbdb; border-style: ridge">Registro de Usuario</h1>
     <div class="container">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation">
             <h1>Datos Personales:</h1>
             <%--Nombre--%>
             <div class="form-row">
                 <div class="col-md-4 mb-2">
                     <label>Nombre de usuario</label>
                     <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" placeholder="Introduzca sus Nombres" />
-                    <asp:RegularExpressionValidator ErrorMessage="errormessage" ControlToValidate="txtNombre" runat="server" />
                 </div>
                 <%--Apellido--%>
                 <div class="col-md-4 mb-2 ">
@@ -85,7 +182,6 @@
                 <div class="col-md-2 mb-2">
                     <label>DNI</label>
                     <asp:TextBox runat="server" ID="txtDNI" CssClass="form-control" placeholder="Introduzca su DNI" />
-                    <asp:RangeValidator ID="valDNI" ErrorMessage="El numero no debe superar los 8 digitos" MaximumValue="99999999" MinimumValue="0" ControlToValidate="txtDNI" runat="server" />
                 </div>
                 <%--FechaNac--%>
                 <div class="col-md-2 mb-2">
@@ -101,9 +197,9 @@
                 <div class="col-md-3 mb-2 ">
                     <label>Sexo:</label>
                     <br />
-                    <asp:CheckBox CssClass="custom-checkbox" Text=" Masculino" runat="server" ID="cbMasculino" OnCheckedChanged="cbMasculino_CheckedChanged" AutoPostBack="true" />
+                    <asp:CheckBox CssClass="custom-checkbox"  Text=" Masculino" runat="server" ID="cbMasculino" OnCheckedChanged="cbMasculino_CheckedChanged" AutoPostBack="true" />
                     <br />
-                    <asp:CheckBox CssClass="custom-checkbox" Text=" Femenino" runat="server" ID="cbFemenino" OnCheckedChanged="cbFemenino_CheckedChanged" AutoPostBack="true" />
+                    <asp:CheckBox CssClass="custom-checkbox"  Text=" Femenino" runat="server" ID="cbFemenino" OnCheckedChanged="cbFemenino_CheckedChanged" AutoPostBack="true" />
                 </div>
             </div>
             <div class="form-row">
@@ -182,7 +278,7 @@
             <div class="form form-row">
                 <div class="col-md-6 mb-2">
                     <br />
-                    <asp:Button Text="Cargar Formulario" OnClick="btnSubmit3_Click" ID="btnSubmit3" title="Pulse para enviar formulario" class="btn btn-primary" runat="server" />
+                    <asp:Button Text="Cargar Formulario" ID="btnSubmit3" OnClientClick="return validar()" OnClick="btnSubmit3_Click" title="Pulse para enviar formulario" CssClass="btn btn-primary" runat="server" />
                 </div>
             </div>
         </form>
