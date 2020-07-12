@@ -9,7 +9,7 @@
             <div>
                 <%--<img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">--%>
                 <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-                <div class="form-group">
+                <div class="form-group ">
                     <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" placeholder="Usuario" required="" />
                     </br>
                     <%--<asp:RegularExpressionValidator ErrorMessage="Ingrese un mail valido" ControlToValidate="txtUsuario" runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>--%>
@@ -17,6 +17,7 @@
                 </div>
                 </br>
                 <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-lg btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" />
+                </br>
             </div>
 
         </form>

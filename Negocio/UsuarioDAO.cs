@@ -139,7 +139,7 @@ namespace Negocio
                 if (usuario.Apellido == "")
                     usuario.Apellido = "N/A";
                 datos.agregarParametro("@Apellido",usuario.Apellido);
-                datos.agregarParametro("@Sexo",usuario.Apellido);
+                datos.agregarParametro("@Sexo",usuario.Sexo);
                 datos.agregarParametro("@DNI",usuario.DNI);
                 datos.agregarParametro("@FechaNac",usuario.FechaNac.Date);
                 datos.agregarParametro("@Telefono", usuario.Telefono);

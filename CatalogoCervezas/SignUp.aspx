@@ -5,15 +5,20 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         function validar() {
-            //regular expressions
+
+            var completar = false;
+            var valido = true;
+            //------------------------------regular expressions------------------------------------
+
             var regexLetterOnly = /^[a-zA-Z ]+$/;// solo letras y espacios 
+            var regexNumberOnly = /^[0-9]*$/;// solo Numeros 
+            var regexAlphaNumeric = /^[a-zA-Z0-9.-_ ]+$/;// alfanumerico 
             var regexDNI = /^\d{8}(?:[-\s]\d{4})?$/;// DNI 
             var regexEmail = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/; //Email
             var regexTelefono = /^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/; //Telefono (Argentina)
-            var completar = false;
-            var valido = true;
+            var regexContra = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //contraseña minimo 8 caracteres (un numero y una letra)
 
-            //-------------------------------carga de variables------------------------------
+            //-------------------------------carga de variables------------------------------------
             //usuario
             var nombre = document.getElementById("<% = txtNombre.ClientID %>").value;
             var apellido = document.getElementById("<% = txtApellido.ClientID %>").value;
@@ -23,17 +28,18 @@
             var ContraRep = document.getElementById("<% = txtContraRep.ClientID %>").value;
             var FechaNac = document.getElementById("<% = txtFechaNac.ClientID %>").value;
             var Telefono = document.getElementById("<% = txtTelefono.ClientID %>").value;
+            
 
-           <%-- //domicilio
+            //domicilio
             var ciudad = document.getElementById("<% = txt_ciudad.ClientID%>").value;
             var direccion = document.getElementById("<% = txt_direccion.ClientID%>").value;
             var numero = document.getElementById("<% = txt_numero.ClientID%>").value;
             var piso = document.getElementById("<% = txt_piso.ClientID%>").value;
             var depto = document.getElementById("<% = txt_departamento.ClientID%>").value;
             var CodigoPostal = document.getElementById("<% = txt_codigoPostal.ClientID%>").value;
-            var referencia = document.getElementById("<% = txt_referencia.ClientID%>").value;--%>
+            var referencia = document.getElementById("<% = txt_referencia.ClientID%>").value;
 
-            //--------------------validaciones------------------------------------
+            //-------------------------------------validaciones------------------------------------
             //nombre
             if (nombre === "") {
                 $("#<% = txtNombre.ClientID %>").removeClass("is-valid");
@@ -139,13 +145,167 @@
             //sexo
             var masculino = document.getElementById("<%= cbMasculino.ClientID %>");
             var femenino = document.getElementById("<%= cbFemenino.ClientID %>");
-            
+
             if (!femenino.checked && !masculino.checked) {
 
                 completar = true;
                 valido = false;
             }
+            //Contraseña
+            var contra = document.getElementById("<% = txtContra.ClientID %>").value;
+            var contraRep = document.getElementById("<% = txtContraRep.ClientID %>").value;
 
+            if (contra === "" || contraRep ==="") {
+
+                $("#<% = txtContra.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContra.ClientID %>").addClass("is-invalid");
+                $("#<% = txtContraRep.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContraRep.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+          else if (!regexContra.test(contra)) {
+                alert("Contraseña invalida. La contraseña debe contener como minimo 8 caracteres, una letra y un numero.");
+                $("#<% = txtContra.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContra.ClientID %>").addClass("is-invalid");
+                $("#<% = txtContraRep.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContraRep.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txtContra.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtContra.ClientID %>").addClass("is-valid");
+                $("#<% = txtContraRep.ClientID %>").removeClass("is-invalid");
+                $("#<% = txtContraRep.ClientID %>").addClass("is-valid");
+            }
+
+           if (contra !== contraRep) {
+                alert("La contraseña debe coincidir en ambos campos");
+                $("#<% = txtContra.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContra.ClientID %>").addClass("is-invalid");
+                $("#<% = txtContraRep.ClientID %>").removeClass("is-valid");
+                $("#<% = txtContraRep.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            //----------------------------------------------------------------------------------
+            //Ciudad
+            if (ciudad === "") {
+
+                $("#<% = txt_ciudad.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_ciudad.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexLetterOnly.test(ciudad)) {
+                alert("La ciudad ingresada no es valida");
+                $("#<% = txt_ciudad.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_ciudad.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_ciudad.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_ciudad.ClientID %>").addClass("is-valid");
+            }
+
+            //Direccion
+            if (direccion === "") {
+                $("#<% = txt_direccion.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_direccion.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexLetterOnly.test(direccion)) {
+                alert("La direccion ingresada no es valida");
+                $("#<% = txt_direccion.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_direccion.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_direccion.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_direccion.ClientID %>").addClass("is-valid");
+            }
+
+            //Numero
+            if (numero === "") {
+                $("#<% = txt_numero.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_numero.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexNumberOnly.test(numero)) {
+                alert("El numero de la direccion ingresado no es valido");
+                $("#<% = txt_numero.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_numero.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_numero.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_numero.ClientID %>").addClass("is-valid");
+            }
+
+            //Piso
+            if (piso === "") {
+                $("#<% = txt_piso.ClientID %>").removeClass("is-invalid");
+            }
+           else  if (!regexNumberOnly.test(piso)) {
+                alert("El piso ingresado no es valido");
+                $("#<% = txt_piso.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_piso.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_piso.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_piso.ClientID %>").addClass("is-valid");
+            }
+
+            //Depto
+            if (depto === "") {
+                $("#<% = txt_departamento.ClientID %>").removeClass("is-invalid");
+            }
+            else if (!regexLetterOnly.test(depto)) {
+                alert("El departamento ingresado no es valido");
+                $("#<% = txt_departamento.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_departamento.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_departamento.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_departamento.ClientID %>").addClass("is-valid");
+            }
+
+            //codigo postal
+            if (CodigoPostal === "") {
+                $("#<% = txt_codigoPostal.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_codigoPostal.ClientID %>").addClass("is-invalid");
+                completar = true;
+                valido = false;
+            }
+            else if (!regexNumberOnly.test(CodigoPostal)) {
+                alert("El codigo postal ingresado no es valido");
+                $("#<% = txt_codigoPostal.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_codigoPostal.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_codigoPostal.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_codigoPostal.ClientID %>").addClass("is-valid");
+            }
+
+            //Referencia
+            if (referencia === "") {
+                $("#<% = txt_referencia.ClientID %>").removeClass("is-invalid");
+            }
+            else if (!regexAlphaNumeric.test(referencia)) {
+                alert("El referencia ingresada no es valida");
+                $("#<% = txt_referencia.ClientID %>").removeClass("is-valid");
+                $("#<% = txt_referencia.ClientID %>").addClass("is-invalid");
+                valido = false;
+            }
+            else {
+                $("#<% = txt_referencia.ClientID %>").removeClass("is-invalid");
+                $("#<% = txt_referencia.ClientID %>").addClass("is-valid");
+            }
+            //-----------------------------Fin Validacion-----------------------------
             if (completar) {
                 alert("Debes completar los campos");
             }
@@ -181,7 +341,7 @@
                 <%--DNI--%>
                 <div class="col-md-2 mb-2">
                     <label>DNI</label>
-                    <asp:TextBox runat="server" ID="txtDNI" CssClass="form-control" placeholder="Introduzca su DNI" />
+                    <asp:TextBox runat="server" MaxLength="10" ID="txtDNI" CssClass="form-control" placeholder="Introduzca su DNI" />
                 </div>
                 <%--FechaNac--%>
                 <div class="col-md-2 mb-2">
@@ -191,15 +351,15 @@
                 <%--Telefono--%>
                 <div class="col-md-2 mb-3">
                     <label>Telefono </label>
-                    <asp:TextBox TextMode="Phone" runat="server" ID="txtTelefono" CssClass="form-control" Placeholder="11-12345678" />
+                    <asp:TextBox TextMode="Phone" MaxLength="15" runat="server" ID="txtTelefono" CssClass="form-control" Placeholder="11-12345678" />
                 </div>
                 <%--Sexo--%>
                 <div class="col-md-3 mb-2 ">
                     <label>Sexo:</label>
                     <br />
-                    <asp:CheckBox CssClass="custom-checkbox"  Text=" Masculino" runat="server" ID="cbMasculino" OnCheckedChanged="cbMasculino_CheckedChanged" AutoPostBack="true" />
+                    <asp:CheckBox CssClass="custom-checkbox" Text=" Masculino" runat="server" ID="cbMasculino" OnCheckedChanged="cbMasculino_CheckedChanged" AutoPostBack="true" />
                     <br />
-                    <asp:CheckBox CssClass="custom-checkbox"  Text=" Femenino" runat="server" ID="cbFemenino" OnCheckedChanged="cbFemenino_CheckedChanged" AutoPostBack="true" />
+                    <asp:CheckBox CssClass="custom-checkbox" Text=" Femenino" runat="server" ID="cbFemenino" OnCheckedChanged="cbFemenino_CheckedChanged" AutoPostBack="true" />
                 </div>
             </div>
             <div class="form-row">
@@ -213,12 +373,13 @@
                 <%--Contraseña--%>
                 <div class="col-md-4 mb-2">
                     <label>Introduzca su Contraseña</label>
-                    <asp:TextBox TextMode="Password" runat="server" ID="txtContra" CssClass="form-control" />
+                    <asp:TextBox runat="server" ID="txtContra" CssClass="form-control" textmode="Password"/>
+                    <asp:Label Text ="La contraseña debe contener almenos 8 caracteres, una letra y un numero" CssClass="small" runat="server"  />
                 </div>
                 <%--Contraseña rep--%>
                 <div class="col-md-4 mb-2">
-                    <label>Repita su Contraseña</label>
-                    <asp:TextBox TextMode="Password" runat="server" ID="txtContraRep" CssClass="form-control" />
+                    <label> Porfavor repita su Contraseña</label>
+                    <asp:TextBox  runat="server" ID="txtContraRep" CssClass="form-control" textmode="Password"/>
                 </div>
             </div>
             <h1>Datos del Domicilio:</h1>
@@ -239,8 +400,8 @@
             <div class="form-row">
                 <%--numero--%>
                 <div class="col-md-2 mb-2">
-                    <label>Numero </label>
-                    <asp:TextBox runat="server" ID="txt_numero" CssClass="form-control" placeholder="ej 2330" />
+                    <label>Numero / Altura </label>
+                    <asp:TextBox runat="server" ID="txt_numero" MaxLength="6" CssClass="form-control" placeholder="ej 2330" />
                 </div>
                 <%--piso--%>
                 <div class="col-md-2 mb-2">
