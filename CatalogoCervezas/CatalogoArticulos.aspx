@@ -13,7 +13,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: black; font-weight: bold;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Estilos</a>
-                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <%foreach (var estilo in listaEstilos)
                             {%>
                         <a class="dropdown-item" href="CatalogoArticulos.aspx?filtroEstilo=<%= estilo.ID%>"><%= estilo.Nombre%></a>
@@ -30,7 +30,7 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <asp:TextBox CssClass="form-control" ID="txt_Buscar"  runat="server"></asp:TextBox>
+                    <asp:TextBox CssClass="form-control" ID="txt_Buscar" runat="server"></asp:TextBox>
                 </li>
                 <li class="nav-item">
                     <asp:Button CssClass="btn btn-dark" Font-Bold="true" ID="btnBuscar" runat="server" Text="Buscar" OnClick=" btnBuscar_Click" />
@@ -45,27 +45,30 @@
                 <div class="card-columns" style="margin-left: 5px; margin-right: 5px;">
                     <asp:Repeater runat="server" ID="repetidor">
                         <ItemTemplate>
-                            <div class="card bg-light mb-3" style="width: 350px; max-height: 1500px; max-width: 500px;">
+                            <div class="card bg-light mb-3" style="width: 350px; max-height: 1500px; max-width: 500px; margin-left: auto; margin-right: auto;">
                                 <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h3 class="card-title" style="text-align: center;"><%#Eval("Nombre")%></h3>
-                                    <h6 class="card-title">Cerveceria: <%#Eval("marca.Nombre")%></h6>
-                                    <h6 class="card-title">Estilo: <%#Eval("estilo.Nombre")%></h6>
-                                    <h6 class="card-title">ABV: <%#Eval("ABV")%>| IBU:  <%#Eval("IBU")%> </h6>
-                                    <p>
-                                        <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Descripcion</a>
+                                    <p class="card-text" style="text-align: center; font-size: large;">Cerveceria: <%#Eval("marca.Nombre")%></p>
+                                    <p class="card-text" style="text-align: center; font-size: large;">Estilo: <%#Eval("estilo.Nombre")%></p>
+                                    <p class="card-text" style="text-align: center; font-size: large;">ABV: <%#Eval("ABV")%> &nbsp;|&nbsp; IBU:  <%#Eval("IBU")%> </p>
+                                    <div class="container" style="text-align: center; padding: 5px;">
+                                        <a class="btn btn-secondary" data-toggle="collapse" href="#collapseExample" role="button">Descripcion: </a>
                                         <div class="collapse" id="collapseExample">
-                                            <div class="card card-body">
+                                            <div class="card card-body" style="text-align:center">
                                                 <p class="card-text"><%#Eval("Descripcion")%></p>
                                             </div>
                                         </div>
-                                        <div class="card-footer" style="font-weight: bold">Precio: $<%#Eval("Precio")%></div>
-                                        <div class="container">
-                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                                <a class="btn btn-warning" style="color: black; font-weight: bold;" href="CarritoWeb.aspx?idsum=<%#Eval("ID") %>">Agregar al carrito</a>
-                                                <a class="btn btn-success" style="font-weight: bold;" href="CatalogoArticulos.aspx?idfav=<%#Eval("ID") %>">Agregar a favoritos</a>
-                                            </div>
+                                    </div>
+                                     <div class="container" style="text-align: center; padding: 5px;">
+                                    <h4 class="card-title" style="text-align: center;">Precio: $<%#Eval("Precio")%></h4>
+                                         </div>
+                                    <div class="container">
+                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                            <a class="btn btn-warning" style="color: black; font-weight: bold;" href="CarritoWeb.aspx?idsum=<%#Eval("ID") %>">Agregar al carrito</a>
+                                            <a class="btn btn-success" style="font-weight: bold;" href="CatalogoArticulos.aspx?idfav=<%#Eval("ID") %>">Agregar a favoritos</a>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </ItemTemplate>

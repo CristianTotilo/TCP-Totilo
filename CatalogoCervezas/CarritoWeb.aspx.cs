@@ -13,12 +13,13 @@ namespace CatalogoCervezas
     {
         public List<Articulo> listaArticulos { get; set; }
         public Carrito carrito = new Carrito();
-        public Venta venta = new Venta();
+        public  Usuario usuario = new Usuario();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                usuario = (Usuario)Session["usersession"];
                 listaArticulos = (List<Articulo>)Session[Session.SessionID + "listaArticulos"];
 
                 if ((Carrito)Session[Session.SessionID + "carrito"] == null)
@@ -47,12 +48,25 @@ namespace CatalogoCervezas
                     }
                     string idComprar = Request.QueryString["comprar"];
 
-                    if (idComprar != null)
+                    if (idComprar != null && ContarCarrito() != 0 && usuario !=null)
                     {
-                        //GenerarVenta();
+                        GenerarVenta();
                         carrito.eliminatTodo();
                         Session[Session.SessionID + "carrito"] = carrito;
+                        Response.Redirect("CatalogoArticulos.aspx",false);
 
+                    }
+                    string idSumar = Request.QueryString["sumar"];
+                    if (idSumar != null)
+                    {
+                        carrito.sumarItem(Convert.ToInt32(idSumar));
+                        Session[Session.SessionID + "carrito"] = carrito;
+                    }
+                    string idRestar = Request.QueryString["restar"];
+                    if (idRestar != null)
+                    {
+                        carrito.restarItem(Convert.ToInt32(idRestar));
+                        Session[Session.SessionID + "carrito"] = carrito;
                     }
 
                     string idEliminar = Request.QueryString["eliminar"];
@@ -80,10 +94,14 @@ namespace CatalogoCervezas
                 Response.Redirect("Error.aspx");
             }
         }
-        //protected void GenerarVenta()
-        //{
-        //    venta.usuario= 
-        //}
+        protected void GenerarVenta()
+        {
+            //Venta venta = new Venta();
+            //venta.usuario.ID = usuario.ID;
+            //venta.IDDomicilioVenta = 10;
+            //venta.listaItems = carrito.listaItems;
+            //venta.Subtotal = 
+        }
 
         protected void cargarRepeater()
         {
@@ -139,7 +157,12 @@ namespace CatalogoCervezas
         {
             if (carrito == null)
                 return 0;
-            return carrito.precioTotal();
+            return carrito.preciosubTotal();
+        }
+        protected double TOTAL()
+        {
+            double total=SubtotalCarrito();
+            return total;
         }
         protected string MensajeCarritoVacio()
         {

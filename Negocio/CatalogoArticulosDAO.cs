@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setearQuery("select A.IDArticulo,A.IDMarca,M.NombreMarca,A.IDEstilo,E.NombreEstilo,A.Nombre,A.Descripcion,A.ABV,A.IBU,A.Volumen,A.Precio,A.ImagenUrl,A.Estado from ARTICULO as A left join Estilos as E on A.IDEstilo = E.IDEstilo  left join Marcas as M on A.IDMarca = M.IDMarca");
+                datos.setearQuery("select * from listarcatalogo");
 
                 datos.ejecutarLector();
                 while (datos.lector.Read())

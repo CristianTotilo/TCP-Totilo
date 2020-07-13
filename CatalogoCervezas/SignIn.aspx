@@ -5,21 +5,26 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
-        <form class="needs-validation" >
-            <div>
-                <%--<img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">--%>
-                <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-                <div class="form-group ">
+        <form class="needs-validation">
+             <h1>Inicio de Sesion</h1>
+            <div class="form form-row">
+                <div class="col-md-6 mb-2">
                     <asp:TextBox runat="server" ID="txtUsuario" CssClass="form-control" placeholder="Usuario" required="" />
-                    </br>
-                    <%--<asp:RegularExpressionValidator ErrorMessage="Ingrese un mail valido" ControlToValidate="txtUsuario" runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>--%>
+                    <p class="small">Ingrese el mail con el que se encuentra registrado.</p>
+                </div>
+            </div>
+            <div class="form form-row">
+                <div class="col-md-6 mb-2">
                     <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" placeholder="Password" required="" />
                 </div>
-                </br>
-                <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-lg btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" />
-                </br>
             </div>
-
+            <div class="form form-row">
+                <div class="col-md-6 mb-2">
+                    <asp:Button Text="Ingresar" runat="server" CssClass="btn btn-lg btn-primary" ID="btnIngresar" OnClick="btnIngresar_Click" />
+                </div>
+            </div>
         </form>
+        <a href="SignUp.aspx">No estas registrado? Presiona este link para hacerlo!</a>
+        <p class="small">Si no estas registrado no podras realizar compras ya que necesitaremos tus datos personales para poder llevarlas a cabo.</p>
     </div>
 </asp:Content>

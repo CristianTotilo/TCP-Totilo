@@ -64,7 +64,7 @@
             </div>
             <%--boton Cargar--%>
             <div class="form form-row">
-                <div class="col-md-6 ">
+                <div class="col-md-6 mb-2">
                     <br />
                     <asp:Button Text="Cargar Formulario" Onclick="CargarC" ID="btnSubmit3" title="Pulse para enviar formulario" class="btn btn-primary" runat="server" />
                 </div>

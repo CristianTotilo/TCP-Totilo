@@ -6,7 +6,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <h1 style="text-align:center; background-color:#eadbdb; border-style:ridge"> Formulario de carga de Estilos </h1>
     <div class="container">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" >
             <%--Nombre--%>
             <div class="form-row">
                 <div class="col-md-6 mb-2">

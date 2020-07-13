@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <h2 style="text-align: center; font-weight: 600;"><%= ContarCarrito()%> Articulos &nbsp;| &nbsp; TOTAL: $<%= SubtotalCarrito()%></h2>
+                    <h2 style="text-align: center; font-weight: 600;">Articulos: <%= ContarCarrito()%>  &nbsp;| &nbsp;  TOTAL: $<%= TOTAL()%></h2>
                 </li>
             </ul>
         </div>
@@ -27,8 +27,11 @@
                         <p class="card-text" style="text-align: center; font-size: large;">SubTotal: <strong>$<%#Convert.ToDouble(Eval("Articulo.Precio"))*Convert.ToInt32(Eval("Cantidad"))%></strong></p>
                         <div class="container" style="text-align: center; padding: 5px;">
                             <div class="row" style="display: inline-block">
-                                <a href="CarritoWeb.aspx?eliminar=<%#Eval("ID")%>" class="btn btn-danger">Eliminar</a>
+                                <a href="CarritoWeb.aspx?eliminar=<%#Eval("ID")%>" class="btn btn-dark">Eliminar</a>
+                                <a href="CarritoWeb.aspx?sumar=<%#Eval("ID")%>" class="btn btn-success" style="border-radius:25px; font-weight:bold"> + </a>
+                                <a href="CarritoWeb.aspx?restar=<%#Eval("ID")%>" class="btn btn-danger" style="border-radius:25px; font-weight:bold"> - </a>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -37,14 +40,13 @@
     </div>
     </br>
     <div style="background-color: antiquewhite; border: inset">
-        <h2 style="text-align: center; font-weight: 600;"><%= ContarCarrito()%> Articulos &nbsp;| &nbsp; TOTAL: $<%= SubtotalCarrito()%></h2>
+        <h2 style="text-align: center; font-weight: 600;">Articulos: <%= ContarCarrito()%>  &nbsp;| &nbsp;  TOTAL: $<%= SubtotalCarrito()%></h2>
     </div>
-    <div class="container">
-        <div class="btn-group">
-            <a class="btn btn-success btn-lg " href="CarritoWeb.aspx?comprar=<%#Eval("ID")%>">Comprar</a>
+    <div class="container" style="text-align: center; padding: 5px;">
+        <div class="btn-group-lg">
             <a class="btn btn-danger btn-lg " href="CarritoWeb.aspx?eliminarTodo=<%#Eval("ID")%>">Vaciar el Carrito</a>
             <a class="btn btn-info btn-lg " href="CatalogoArticulos.aspx">Volver al Catalogo de articulos</a>
+            <a class="btn btn-success btn-lg " href="CarritoWeb.aspx?comprar=<%#Eval("ID")%>">Comprar</a>
         </div>
     </div>
-
 </asp:Content>

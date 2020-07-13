@@ -18,14 +18,14 @@ namespace Dominio
             List<Item> lista = new List<Item>();
             listaItems = lista;
         }
-        public double precioTotal()
+        public double preciosubTotal()
         {
-            double total = 0;
+            double subtotal = 0;
             foreach (var item in listaItems)
             {
-                total += item.precio();
+                subtotal += item.precio();
             }
-            return total;
+            return subtotal;
         }
         public void agregarItem(Articulo articulo)
         {
@@ -67,6 +67,32 @@ namespace Dominio
             return cantidad;
         }
 
+        public void sumarItem(int ID)
+        {
+            foreach (var item in listaItems)
+            {
+                if (item.ID == ID)
+                {
+                    item.Cantidad += 1;
+                    return;
+                }
+            }
+        }  
+        public void restarItem(int ID)
+        {
+            foreach (var item in listaItems)
+            {
+                if (item.ID == ID)
+                {
+                    item.Cantidad -= 1;
+                    if(item.Cantidad <= 0)
+                    {
+                        listaItems.Remove(item);
+                    }
+                    return;
+                }
+            }
+        } 
         public void eliminarItem(int ID)
         {
             foreach (var item in listaItems)
