@@ -382,6 +382,7 @@
                     <asp:TextBox  runat="server" ID="txtContraRep" CssClass="form-control" textmode="Password"/>
                 </div>
             </div>
+            <%---------------------------------------------------------------------------------------------%>
             <h1>Datos del Domicilio:</h1>
             <div class="form-row">
                 <%--ciudad--%>

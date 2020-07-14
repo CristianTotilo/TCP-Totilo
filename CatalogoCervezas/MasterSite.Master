@@ -46,7 +46,16 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
+                       <% if (usuario != null)
+                        { %>
+                    <a class="nav-link" href="SignIn.aspx"><%= usuario.Nombre%></a>
+
+                    <% 
+                        }else{ %>
+                    
                     <a class="nav-link" href="SignIn.aspx">Iniciar Sesion</a>
+                    <% 
+                        }%>
                 </li>
             </ul>
         </div>

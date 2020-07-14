@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -13,13 +14,15 @@ namespace CatalogoCervezas
     {
         public List<Articulo> listaArticulos { get; set; }
         public Carrito carrito = new Carrito();
-        public  Usuario usuario = new Usuario();
+        public Usuario usuario = new Usuario();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+
                 usuario = (Usuario)Session["usersession"];
+
                 listaArticulos = (List<Articulo>)Session[Session.SessionID + "listaArticulos"];
 
                 if ((Carrito)Session[Session.SessionID + "carrito"] == null)
@@ -34,8 +37,8 @@ namespace CatalogoCervezas
                 }
                 if (!IsPostBack)
                 {
+                    //AGREGAR ARTICULO
                     string idArticulo = Request.QueryString["idsum"];
-                    
                     if (carrito != null)
                     {
 
@@ -46,35 +49,56 @@ namespace CatalogoCervezas
                         }
 
                     }
+                    //VALIDAR COMPRAR
                     string idComprar = Request.QueryString["comprar"];
-
-                    if (idComprar != null && ContarCarrito() != 0 && usuario !=null)
+                    if (idComprar != null)
                     {
-                        GenerarVenta();
-                        carrito.eliminatTodo();
+                        if (usuario == null)
+                        {
+                            Response.Write("<script>alert('Debe Iniciar session Para poder realizar una compra.')</script>");
+                        }
+                        if (ContarCarrito() == 0)
+                        {
+                            Response.Write("<script>alert('El carrito esta vacio....')</script>");
+                        }
+                    }
+                    //COMPRAR/VENTA
+                    if (idComprar != null && ContarCarrito() != 0 && usuario != null)
+                    {
+                        Venta venta = new Venta();
+                        //List<Item> listaventa = new List<Item>();
+                        //listaventa = carrito.listaItems;
+                        GenerarVenta(venta);
+                        Session.Add("venta", venta);
+                        //Session.Add("listaVenta", listaventa);
+                        //Session[Session.SessionID + "listaItems"] = carrito.listaItems; 
+                        //carrito.eliminatTodo();???????????????????
                         Session[Session.SessionID + "carrito"] = carrito;
-                        Response.Redirect("CatalogoArticulos.aspx",false);
+                        Response.Redirect("Facturacion.aspx", false);
 
                     }
+                    //SUMAR ARTICULO
                     string idSumar = Request.QueryString["sumar"];
                     if (idSumar != null)
                     {
                         carrito.sumarItem(Convert.ToInt32(idSumar));
                         Session[Session.SessionID + "carrito"] = carrito;
                     }
+                    //RESTAR ARTICULO
                     string idRestar = Request.QueryString["restar"];
                     if (idRestar != null)
                     {
                         carrito.restarItem(Convert.ToInt32(idRestar));
                         Session[Session.SessionID + "carrito"] = carrito;
                     }
-
+                    //ELIMINAR ARTICULO
                     string idEliminar = Request.QueryString["eliminar"];
                     if (idEliminar != null)
                     {
                         carrito.eliminarItem(Convert.ToInt32(idEliminar));
                         Session[Session.SessionID + "carrito"] = carrito;
                     }
+                    //VACIAR CARRITO
                     string idEliminarTodo = Request.QueryString["eliminarTodo"];
                     if (idEliminarTodo != null)
                     {
@@ -94,13 +118,18 @@ namespace CatalogoCervezas
                 Response.Redirect("Error.aspx");
             }
         }
-        protected void GenerarVenta()
+        protected Venta GenerarVenta(Venta venta)
         {
-            //Venta venta = new Venta();
-            //venta.usuario.ID = usuario.ID;
-            //venta.IDDomicilioVenta = 10;
-            //venta.listaItems = carrito.listaItems;
-            //venta.Subtotal = 
+
+            venta.usuario = usuario;
+            venta.IDDomicilioVenta = 10;
+            venta.listaItems = carrito.listaItems;
+            venta.Subtotal = (decimal)SubtotalCarrito();
+            venta.Descuento1 = 0;
+            venta.Descuento2 = 0;
+            venta.fecha = DateTime.Now;
+            venta.Total = (decimal)TOTAL();
+            return (venta);
         }
 
         protected void cargarRepeater()
@@ -161,7 +190,7 @@ namespace CatalogoCervezas
         }
         protected double TOTAL()
         {
-            double total=SubtotalCarrito();
+            double total = SubtotalCarrito();
             return total;
         }
         protected string MensajeCarritoVacio()

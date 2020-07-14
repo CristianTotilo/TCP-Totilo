@@ -19,6 +19,12 @@ namespace CatalogoCervezas
         {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             Usuario usuario = new Usuario();
+            Provincia provincia = new Provincia();
+            Domicilo domicilio = new Domicilo();
+            TipoUsuario tipoUsuario = new TipoUsuario();
+            usuario.tipoUsuario = tipoUsuario;
+            usuario.domicilio = domicilio;
+            usuario.domicilio.provincia = provincia;
             try
             {
                 usuario.Email = txtUsuario.Text;
@@ -28,7 +34,7 @@ namespace CatalogoCervezas
                 {
                     Session.Add("usersession", usuario);
                     Response.Write("<script>alert('Sesion iniciada correctamente');</script>");
-                    Response.Redirect("CatalogoArticulos.aspx");
+                    Response.Redirect("CatalogoArticulos.aspx",false);
                 }
                 else
                 {
@@ -38,9 +44,9 @@ namespace CatalogoCervezas
             }
             catch (Exception ex)
             {
-                //    Session.Add("Error", ex.ToString());
-                //    Session["Error" + Session.SessionID] = ex.ToString();
-                //    Response.Redirect("Error.aspx");
+                Session.Add("Error", ex.ToString());
+                Session["Error" + Session.SessionID] = ex.ToString();
+                Response.Redirect("Error.aspx");
             }
         }
     }

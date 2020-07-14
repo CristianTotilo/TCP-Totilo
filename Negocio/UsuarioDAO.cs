@@ -108,13 +108,48 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearQuery("select IDUsuario from Usuarios Where Email = @Email and Contraseña = @Contraseña");
+                datos.setearSP("SP_ConsultarUsuario");
+                datos.ClearParameters();
                 datos.agregarParametro("@Email", usuario.Email);
-                datos.agregarParametro("@Contraseña",usuario.Contraseña);
-
+                datos.agregarParametro("@Contraseña", usuario.Contraseña);
+                //0.Estado,1.IDUsuario,2.Nombre,3.Apellido,4.DNI,5.Email,6.FechaNac,7.Sexo,8.Telefono,9.IDDomicilio,10.Calle,11.Ciudad,12.CodigoPostal,13.Depto,14.IDProvincia,15.Numero,16.Piso,17.Referencia
+                //datos.ejecutarAccion();
                 datos.ejecutarLector();
-                if (datos.lector.Read())
-                    usuario.ID = (Int64)datos.lector["IDUsuario"];
+                if (datos.lector.Read()) {
+                      
+                    usuario.Estado = datos.lector.GetBoolean(0);
+
+                    if (usuario.Estado == true)
+                    {
+                        usuario.ID = datos.lector.GetInt64(1);
+                        usuario.Nombre = datos.lector.GetString(2);
+                        usuario.Apellido = datos.lector.GetString(3);
+                        usuario.DNI = datos.lector.GetInt32(4);
+                        usuario.Email = datos.lector.GetString(5);
+                        usuario.FechaNac = datos.lector.GetDateTime(6);
+                        usuario.Sexo = datos.GetAChar(datos.lector, 7); // Calling method
+                        usuario.Telefono = datos.lector.GetInt32(8);
+                        usuario.domicilio.ID = datos.lector.GetInt64(9);
+                        usuario.domicilio.Calle = datos.lector.GetString(10);
+                        usuario.domicilio.Ciudad = datos.lector.GetString(11);
+                        usuario.domicilio.codigoPostal = datos.lector.GetInt32(12);
+                        if (!DBNull.Value.Equals(datos.lector["Depto"]))
+                            usuario.domicilio.Depto = datos.lector.GetString(13);
+                        else
+                            usuario.domicilio.Depto = "N/A";
+                        usuario.domicilio.provincia.ID = datos.lector.GetInt32(14);
+                        usuario.domicilio.NumeroAltura = datos.lector.GetInt32(15);
+                        if (!DBNull.Value.Equals(datos.lector["Piso"]))
+                            usuario.domicilio.Piso = datos.lector.GetInt32(16);
+                        else
+                            usuario.domicilio.Piso = 0;
+                        if (!DBNull.Value.Equals(datos.lector["Referencia"]))
+                            usuario.domicilio.Referencia = datos.lector.GetString(17);
+                        else
+                            usuario.domicilio.Referencia = "N/A";
+
+                    }
+                }
 
                 return usuario;
             }
@@ -123,6 +158,7 @@ namespace Negocio
                 throw ex;
             }
         }
+
         public void agregar(Usuario usuario)//Agrega usuario + domicilio en un SP
         {
             AccesoDatos datos = new AccesoDatos();
@@ -135,13 +171,13 @@ namespace Negocio
                 datos.agregarParametro("@IDTipoUsuario", usuario.tipoUsuario.ID);
                 if (usuario.Nombre == "")
                     usuario.Nombre = "N/A";
-                datos.agregarParametro("@Nombre",usuario.Nombre);
+                datos.agregarParametro("@Nombre", usuario.Nombre);
                 if (usuario.Apellido == "")
                     usuario.Apellido = "N/A";
-                datos.agregarParametro("@Apellido",usuario.Apellido);
-                datos.agregarParametro("@Sexo",usuario.Sexo);
-                datos.agregarParametro("@DNI",usuario.DNI);
-                datos.agregarParametro("@FechaNac",usuario.FechaNac.Date);
+                datos.agregarParametro("@Apellido", usuario.Apellido);
+                datos.agregarParametro("@Sexo", usuario.Sexo);
+                datos.agregarParametro("@DNI", usuario.DNI);
+                datos.agregarParametro("@FechaNac", usuario.FechaNac.Date);
                 datos.agregarParametro("@Telefono", usuario.Telefono);
                 datos.agregarParametro("@Email", usuario.Email);
                 datos.agregarParametro("@Contraseña", usuario.Contraseña);

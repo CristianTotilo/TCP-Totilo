@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-image: url(https://i.pinimg.com/originals/ef/c6/02/efc602081b94ce1e95d9bcae1773995f.jpg); position: sticky;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,10 +29,10 @@
                         <div class="container" style="text-align: center; padding: 5px;">
                             <div class="row" style="display: inline-block">
                                 <a href="CarritoWeb.aspx?eliminar=<%#Eval("ID")%>" class="btn btn-dark">Eliminar</a>
-                                <a href="CarritoWeb.aspx?sumar=<%#Eval("ID")%>" class="btn btn-success" style="border-radius:25px; font-weight:bold"> + </a>
-                                <a href="CarritoWeb.aspx?restar=<%#Eval("ID")%>" class="btn btn-danger" style="border-radius:25px; font-weight:bold"> - </a>
+                                <a href="CarritoWeb.aspx?sumar=<%#Eval("ID")%>" class="btn btn-success" style="border-radius: 25px; font-weight: bold">+ </a>
+                                <a href="CarritoWeb.aspx?restar=<%#Eval("ID")%>" class="btn btn-danger" style="border-radius: 25px; font-weight: bold">- </a>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

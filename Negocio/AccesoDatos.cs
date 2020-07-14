@@ -19,7 +19,14 @@ namespace Negocio
             comando = new SqlCommand();
             comando.Connection = conexion;
         }
+        public char GetAChar(SqlDataReader rd, int column)
+        {
+            char[] value = new char[1];
+            long charCount = (long)rd.GetChars(column, 0, value, 0, value.Length);
+            if (charCount != value.Length) throw new InvalidOperationException();
+            return value[0];
 
+        }
         public void setearQuery(string consulta)
         {
             comando.CommandType = System.Data.CommandType.Text;

@@ -76,6 +76,7 @@
     <Content Include="Contacto.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
+    <Content Include="Facturacion.aspx" />
     <Content Include="Form_Alta_Articulo.aspx" />
     <Content Include="Form_Alta_Estilo.aspx" />
     <Content Include="Form_Alta_Marca.aspx" />
@@ -148,6 +149,13 @@
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Facturacion.aspx.cs">
+      <DependentUpon>Facturacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Facturacion.aspx.designer.cs">
+      <DependentUpon>Facturacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Form_Alta_Articulo.aspx.cs">
       <DependentUpon>Form_Alta_Articulo.aspx</DependentUpon>

@@ -23,7 +23,6 @@ namespace Dominio
             listaItems = lista;
             Usuario user = new Usuario();
             usuario = user;
-            fecha = System.DateTime.UtcNow;
         }
 
     }
