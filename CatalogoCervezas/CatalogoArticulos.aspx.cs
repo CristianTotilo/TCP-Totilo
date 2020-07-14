@@ -14,6 +14,7 @@ namespace CatalogoCervezas
         public List<Articulo> listaArticulos = new List<Articulo>();
         public List<Marca> listaMarcas = new List<Marca>();
         public List<Estilo> listaEstilos = new List<Estilo>();
+        public Usuario usuario = new Usuario();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -25,6 +26,7 @@ namespace CatalogoCervezas
                 listaEstilos = estilosDAO.listar();
                 listaMarcas = marcasDAO.listar();
 
+                usuario = (Usuario)Session["usersession"];
                 Session[Session.SessionID + "listaArticulos"] = listaArticulos;
 
                 if (!IsPostBack)
@@ -41,8 +43,27 @@ namespace CatalogoCervezas
                     }
                     repetidor.DataSource = listaArticulos;
                     repetidor.DataBind();
+                    string idfav = Request.QueryString["idfav"];
+                    if (idfav != null)
+                    {
+                        if (usuario == null)
+                        {
+                            Response.Write("<script>alert('Debe Iniciar session agregar articulos a Favoritos.')</script>");
+                        }
+                    }
+                    if (idfav != null && usuario != null)
+                    {
+                        UsuarioDAO usuarioDAO = new UsuarioDAO();
+                        usuarioDAO.agregarFavorito(usuario.ID, idfav);
+                        Response.Write("<script>alert('El articulo seleccionado se agrego a favoritos!')</script>");
+                    }
                 }
             }
+            //catch (SqlException exsql)
+            //{
+            //    Response.Write("<script>alert('No se puede volver a agregar el mismo articulo!')</script>");
+            //    Session.Add("Error", exsql.ToString());
+            //}
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());
@@ -80,6 +101,24 @@ namespace CatalogoCervezas
                 repetidor.DataBind();
 
             }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex.ToString());
+                Session["Error" + Session.SessionID] = ex.ToString();
+                Response.Redirect("Error.aspx");
+            }
+        }
+        protected void btnFavoritos_click(object sender, EventArgs e)
+        {
+            try
+            {
+                CatalogoArticulosDAO ArticulosDAO = new CatalogoArticulosDAO();
+                List<Articulo> listaFavoritos = ArticulosDAO.listarFavoritos(usuario.ID);
+                listaArticulos = listaFavoritos;
+                repetidor.DataSource = listaArticulos;
+                repetidor.DataBind();
+            }
+            
             catch (Exception ex)
             {
                 Session.Add("Error", ex.ToString());

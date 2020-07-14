@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -199,6 +200,28 @@ namespace Negocio
                 datos.agregarParametro("@CodigoPostal", usuario.domicilio.codigoPostal);
 
                 datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        } 
+        public void agregarFavorito(Int64 IDUsuario,string IDArt)//Agrega usuario + domicilio en un SP
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                Int64 IDArticulo = Convert.ToInt64(IDArt);
+                datos.setearSP("SP_Agregar_Favoritos_x_Usuario");
+                datos.ClearParameters();
+                datos.agregarParametro("@IDUsuario", IDUsuario);
+                datos.agregarParametro("@IDArticulo", IDArticulo);
+                datos.ejecutarAccion();
+            }
+            catch (SqlException exsql)
+            {
+                throw exsql;
             }
             catch (Exception ex)
             {

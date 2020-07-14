@@ -11,6 +11,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                       <% if (usuario != null)
+                        { %>
+                    <asp:Button CssClass="btn btn-dark" Font-Bold="true" ID="btnFavoritos" runat="server" Text="Favoritos" OnClick="btnFavoritos_click" />
+
+                    <% 
+                        }%>
+                    
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" style="color: black; font-weight: bold;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Estilos</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">

@@ -15,7 +15,7 @@
             </div>
             <div class="form form-row">
                 <div class="col-md-6 mb-2">
-                    <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" placeholder="Password" required="" />
+                    <asp:TextBox runat="server" ID="txtPass" CssClass="form-control" TextMode="Password" placeholder="Password" required="" />
                 </div>
             </div>
             <div class="form form-row">

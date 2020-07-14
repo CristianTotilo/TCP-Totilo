@@ -12,7 +12,7 @@ namespace Negocio
         public SqlDataReader lector { get; set; }
         public SqlConnection  conexion { get; }
         public SqlCommand comando { get; set; }
-
+        public SqlException exception { get; set; }
         public AccesoDatos()
         {
             conexion = new SqlConnection("data source=DESKTOP-TL0O0F7\\SQLEXPRESS; initial catalog=TOTILO_DB; integrated security=sspi");

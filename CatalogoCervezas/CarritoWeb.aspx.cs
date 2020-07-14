@@ -66,13 +66,8 @@ namespace CatalogoCervezas
                     if (idComprar != null && ContarCarrito() != 0 && usuario != null)
                     {
                         Venta venta = new Venta();
-                        //List<Item> listaventa = new List<Item>();
-                        //listaventa = carrito.listaItems;
                         GenerarVenta(venta);
                         Session.Add("venta", venta);
-                        //Session.Add("listaVenta", listaventa);
-                        //Session[Session.SessionID + "listaItems"] = carrito.listaItems; 
-                        //carrito.eliminatTodo();???????????????????
                         Session[Session.SessionID + "carrito"] = carrito;
                         Response.Redirect("Facturacion.aspx", false);
 
@@ -105,6 +100,11 @@ namespace CatalogoCervezas
                         carrito.eliminatTodo();
                         Session[Session.SessionID + "carrito"] = carrito;
                     }
+                    //string flagVendio = Request.QueryString["flagVendio"];
+                    //if (flagVendio != null)
+                    //{
+                    //carrito.eliminatTodo();
+                    //}
 
                     cargarRepeater();
 

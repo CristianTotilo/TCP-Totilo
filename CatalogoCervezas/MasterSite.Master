@@ -29,26 +29,35 @@
                     <a class="nav-link" href="CatalogoArticulos.aspx">Ver catalogo</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="ABM_Articulos.aspx">ABM de Articulos</a>
+                      <% if (usuario != null && usuario.tipoUsuario.ID < 3)
+                        { %>
+                   <a class="nav-link" href="ABM_Articulos.aspx">ABM de Articulos</a>
+
+                    <% 
+                        } %>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="ABM_Estilos.aspx">ABM de Estilos</a>
+                    <% if (usuario != null && usuario.tipoUsuario.ID < 3)
+                        { %>
+                   <a class="nav-link" href="ABM_Estilos.aspx">ABM de Estilos</a>
+
+                    <% 
+                        } %>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="ABM_Marca.aspx">ABM de Marcas</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="Form_Alta_Articulo.aspx">Form Alta Articulos</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="Form_Alta_Estilo.aspx">Form Alta Estilos</a>
+                      <% if (usuario != null && usuario.tipoUsuario.ID <2)
+                        { %>
+                   <a class="nav-link" href="ABM_Marca.aspx">ABM de Marcas</a>
+
+                    <% 
+                        } %>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                        <% if (usuario != null)
                         { %>
-                    <a class="nav-link" href="SignIn.aspx"><%= usuario.Nombre%></a>
+                    <a class="nav-link" href="SignIn.aspx"><%= usuario.Nombre%>  <%= usuario.Apellido%></a>
 
                     <% 
                         }else{ %>
